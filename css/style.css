@@ -1,0 +1,616 @@
+/* ============================================================
+   页面业务样式 (style.css)
+   包含：页面主体布局、筛选区、表格区、工具栏、行操作等
+   ============================================================ */
+
+/* ============================================================
+   一、MAIN CONTENT BODY (留白正文容器)
+   ============================================================ */
+.page-body {
+  min-height: calc(100vh - 56px - 52px);
+  background: #ffffff;
+  padding: 16px;
+}
+
+/* ============================================================
+   二、Panel / Filters 筛选区
+   ============================================================ */
+.panel {
+  background: var(--biz-panel);
+  border: 1px solid var(--biz-soft-line);
+  border-radius: var(--biz-radius);
+  margin-bottom: 14px;
+}
+.task-panel {
+  display: none;
+  width: 280px;
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--biz-soft-line);
+  padding: 14px;
+  box-sizing: border-box;
+}
+.task-panel.is-visible {
+  display: block;
+}
+.task-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.task-panel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1769e0;
+  box-shadow: 0 0 0 4px rgba(23, 105, 224, 0.12);
+  animation: task-dot-pulse 1.5s infinite;
+}
+@keyframes task-dot-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(23, 105, 224, 0.25); }
+  70% { box-shadow: 0 0 0 8px rgba(23, 105, 224, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(23, 105, 224, 0); }
+}
+.task-panel-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--biz-text);
+}
+.task-panel-body {
+  display: flex;
+  gap: 12px;
+}
+.task-panel-main {
+  flex: 1;
+  min-width: 0;
+}
+.task-panel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--biz-soft-line);
+  margin-bottom: 10px;
+}
+.task-panel-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+.task-panel-label {
+  color: var(--biz-muted);
+  flex-shrink: 0;
+}
+.task-panel-value {
+  color: var(--biz-text);
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.task-panel-progress {
+  margin-bottom: 10px;
+}
+.task-panel-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--biz-muted);
+  margin-bottom: 6px;
+}
+.task-panel-percent {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--biz-primary);
+}
+.task-panel-progress-bar {
+  height: 6px;
+  background: var(--biz-gray-weak);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.task-panel-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--biz-primary);
+  border-radius: 3px;
+  transition: width 0.2s linear;
+}
+.task-panel-queue {
+  font-size: 12px;
+  color: var(--biz-muted);
+}
+.task-panel-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+  justify-content: flex-start;
+}
+.task-panel-actions .btn {
+  padding: 0 8px;
+  min-height: 28px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.filters {
+  padding: 16px;
+  flex: 1;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.filter-section {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px 16px;
+  align-items: center;
+}
+.filter-grid > * {
+  min-width: 0;
+  overflow: hidden;
+}
+.filter-grid--simple {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+}
+.filter-grid--simple > * {
+  min-width: auto;
+  overflow: visible;
+}
+.filter-grid--simple .field {
+  display: inline-flex;
+  flex: 0 0 auto;
+  max-width: none;
+  min-width: 0;
+  overflow: visible;
+  gap: 0;
+}
+.filter-grid--simple .field label {
+  width: auto;
+  margin-right: 8px;
+  text-align: left;
+  flex-shrink: 0;
+}
+.filter-grid--simple select.filter-select {
+  max-width: 320px;
+  width: auto;
+  min-width: 120px;
+}
+.filter-grid--simple .filter-select--wide {
+  max-width: 220px;
+}
+.filter-grid--simple .btn-row {
+  flex-basis: 100%;
+  justify-content: flex-end;
+  margin-left: 0;
+  margin-top: 8px;
+  flex: 0 0 100%;
+  overflow: visible;
+}
+.filter-grid--simple .schedule-btn {
+  margin-right: 16px;
+}
+
+/* 统一控件最大宽度 */
+select.filter-select,
+input.filter-input,
+.date-range-picker-input {
+  flex: 1;
+  min-width: 0;
+  max-width: 320px;
+}
+
+/* 统一 label 宽度 */
+.filter-grid .field label {
+  display: inline-block;
+  flex-shrink: 0;
+  text-align: left;
+  white-space: nowrap;
+  width: 72px;
+}
+
+/* 按钮行 */
+.btn-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  justify-self: end;
+  align-self: center;
+  min-width: 0;
+}
+.btn-row-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: auto;
+  font-size: 14px;
+  color: #4b5563;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.btn-row-checkbox input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+/* 数字区间筛选 */
+.deadline-range-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.deadline-range-row .control {
+  width: 115px;
+  flex: 0 0 115px;
+  text-align: center;
+}
+.deadline-range-sep {
+  color: var(--biz-muted);
+  font-size: 13px;
+  user-select: none;
+}
+
+/* ============================================================
+   三、Tabs (业务状态切换)
+   ============================================================ */
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--biz-soft-line);
+  padding: 0 16px;
+}
+.tab {
+  border: 0;
+  background: transparent;
+  padding: 13px 12px 12px;
+  color: var(--biz-muted);
+  border-bottom: 2px solid transparent;
+  font-weight: 400;
+  transition: color .15s, border-color .15s;
+}
+.tab:hover { color: var(--biz-primary); }
+.tab.active {
+  color: var(--biz-primary);
+  border-bottom-color: var(--biz-primary);
+  font-weight: 500;
+}
+.tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #eef2f6;
+  color: #667085;
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.tab.active .tab-count {
+  background: var(--biz-primary-weak);
+  color: var(--biz-primary);
+}
+
+/* ============================================================
+   四、Table Toolbar 表格工具栏
+   ============================================================ */
+.table-toolbar {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--biz-soft-line);
+}
+.table-toolbar .btn-row {
+  margin-left: auto;
+}
+.selection-info {
+  color: var(--biz-muted);
+  font-size: 13px;
+}
+
+/* ============================================================
+   五、Table 表格区
+   ============================================================ */
+.table-wrap { overflow: auto; }
+table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border-bottom: 1px solid var(--biz-soft-line);
+  padding: 12px 10px;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 400;
+  white-space: nowrap;
+}
+th {
+  background: #f9fafb;
+  color: #475467;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+td { color: var(--biz-text); }
+tr:hover td { background: #fbfdff; }
+
+.check-col { width: 42px; text-align: center; }
+.type-col { min-width: 120px; }
+
+.knowledge-col {
+  max-width: 420px;
+  min-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.period-col {
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+.time-col {
+  min-width: 150px;
+  white-space: nowrap;
+}
+
+.operator-col {
+  min-width: 100px;
+  white-space: nowrap;
+}
+
+.status-col {
+  min-width: 90px;
+  white-space: nowrap;
+}
+
+.col-code {
+  text-align: left;
+  padding-left: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 130px;
+}
+th.col-code { text-align: left; }
+
+.col-fund-short {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 120px;
+}
+
+.col-index {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--biz-muted);
+  width: 64px;
+}
+th.col-index { text-align: center; }
+
+.col-fund-full {
+  text-align: left;
+  font-weight: 400;
+  max-width: 180px;
+  min-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--biz-text);
+}
+
+/* 右侧固定操作列 */
+.sticky-right {
+  position: sticky;
+  right: 0;
+  background: #fff;
+  z-index: 2;
+  box-shadow: -4px 0 8px rgba(0, 0, 0, .05);
+  width: 1px;
+  white-space: nowrap;
+  padding-right: 16px;
+}
+th.sticky-right {
+  z-index: 3;
+  background: #f9fafb;
+}
+tr:hover td.sticky-right { background: #fbfdff; }
+
+/* 行操作 */
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 空态 */
+.empty {
+  padding: 36px;
+  text-align: center;
+  color: var(--biz-muted);
+}
+
+/* ============================================================
+   六、Log Modal 操作日志弹框
+   ============================================================ */
+.log-modal {
+  width: min(560px, 100%);
+  padding: 0;
+  overflow: hidden;
+}
+.log-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 12px 20px;
+}
+.log-modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--biz-text);
+}
+.log-modal-body {
+  padding: 0 20px;
+  max-height: 320px;
+  overflow: auto;
+}
+.log-modal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.log-modal-table th,
+.log-modal-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--biz-soft-line);
+}
+.log-modal-table th {
+  background: #f9fafb;
+  color: #475467;
+  font-weight: 500;
+  font-size: 13px;
+}
+.log-modal-table td {
+  color: var(--biz-text);
+}
+.log-modal-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.log-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 20px 20px 20px;
+}
+
+/* ============================================================
+   七、Batch Log Modal 批量查询日志弹框
+   ============================================================ */
+.batch-log-modal {
+  width: min(980px, 100%);
+  padding: 0;
+  overflow: hidden;
+}
+.batch-log-table th,
+.batch-log-table td {
+  white-space: nowrap;
+}
+.batch-log-table th:nth-child(1),
+.batch-log-table td:nth-child(1) {
+  width: 56px;
+  text-align: center;
+}
+.batch-log-table th:nth-child(3),
+.batch-log-table td:nth-child(3) {
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   八、Schedule Modal 定时任务配置弹框
+   ============================================================ */
+.schedule-modal {
+  width: min(720px, 100%);
+  padding: 0;
+  overflow: hidden;
+}
+.schedule-table th,
+.schedule-table td {
+  text-align: center;
+  vertical-align: middle;
+}
+.schedule-table td input[type="datetime-local"] {
+  width: 200px;
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid var(--biz-line);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--biz-text);
+  outline: none;
+}
+.schedule-table td input[type="datetime-local"]:focus {
+  border-color: var(--biz-primary);
+  box-shadow: 0 0 0 3px rgba(212, 163, 89, .12);
+}
+
+/* Switch 开关 */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #d8dee8;
+  border-radius: 24px;
+  transition: background-color .2s;
+}
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform .2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.switch input:checked + .slider {
+  background-color: var(--biz-primary);
+}
+.switch input:checked + .slider::before {
+  transform: translateX(20px);
+}
+.switch input:disabled + .slider {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.log-modal-footer .btn + .btn {
+  margin-left: 8px;
+}

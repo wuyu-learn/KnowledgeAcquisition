@@ -13,8 +13,11 @@
 
 | 文件 | 说明 |
 |---|---|
-| `todo-list-management.html` | 页面主文件：整体结构与内容布局 |
-| `todo-mock-data.js` | Mock 数据：演示用模拟任务与提取结果 |
+| `index.html` | 页面主文件：整体结构与内容布局 |
+| `css/style.css` | 页面业务样式（筛选区、表格区、布局） |
+| `css/component.css` | 公共组件样式（顶栏、页签、按钮、分页等） |
+| `js/data.js` | Mock 数据：演示用模拟数据 |
+| `js/app.js` | 页面交互逻辑 |
 | `需求说明.md` | 需求背景、页面功能、目录结构规划 |
 
 ## 本地预览
@@ -23,7 +26,7 @@
 
 ### 方式一：直接打开（最简单）
 
-双击 `todo-list-management.html`，默认浏览器即可加载。
+双击 `index.html`，默认浏览器即可加载。
 
 ### 方式二：本地静态服务（推荐）
 
@@ -36,21 +39,20 @@ python -m http.server 8000
 npx serve .
 ```
 
-随后访问 <http://localhost:8000/todo-list-management.html>。
+随后访问 <http://localhost:8000/index.html>。
 
 ## 目录约定（源自需求说明）
 
 后续可参照需求说明中规划的目录结构：
 
 ```
-demo/
 ├── index.html        # 主页
 ├── css/              # 样式
 ├── js/               # 交互与数据
 └── assets/           # 图片 / 图标 / 字体（按需）
 ```
 
-当前为 demo 早期阶段，源文件平铺在项目根目录，待结构稳定后再拆分到子目录。
+当前 demo 源文件已平铺在项目根目录。
 
 ## 许可
 

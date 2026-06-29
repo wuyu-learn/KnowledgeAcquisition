@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信披-定向知识获取</title>
+  <link rel="stylesheet" href="./css/component.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       A. 顶部导航
+       ============================================================ -->
+  <header class="top-nav-bar">
+    <nav class="top-nav">
+      <div class="nav-logo">
+        <div class="nav-logo-icon">CUAM</div>
+        <div class="nav-logo-text">
+          <span class="main-title">信披与报告管理平台</span>
+          <span class="sub-title">汇添富基金管理股份有限公司</span>
+        </div>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-menu-item">
+          <span class="menu-icon">☰</span>工作台
+        </li>
+        <li class="nav-menu-item active">
+          <span class="menu-icon">☰</span>定向知识获取
+        </li>
+        <li class="nav-menu-item">
+          <span class="menu-icon">☰</span>信批日历
+        </li>
+        <li class="nav-menu-item">
+          <span class="menu-icon">☰</span>模板管理
+        </li>
+        <li class="nav-menu-item">
+          <span class="menu-icon">☰</span>数据管理
+        </li>
+        <li class="nav-menu-item">
+          <span class="menu-icon">☰</span>系统管理
+        </li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="user-info">
+          <span class="user-icon">👤</span>
+          员工A
+        </div>
+        <div class="action-btn">
+          <span class="action-icon">↪</span>
+          退出
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============================================================
+       B. 系统标签栏
+       ============================================================ -->
+  <div class="system-tabs-bar" id="tabBar">
+    <div class="breadcrumb-trail" aria-label="位置">工作台</div>
+    <div class="dynamic-tab-item active" data-tab="extract">
+      <span class="tab-title">定向知识提取</span>
+      <span class="tab-close-icon" title="关闭标签" role="button" aria-label="关闭">×</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       C. 业务主体
+       ============================================================ -->
+  <main class="page-body">
+
+    <!-- C.1 筛选区 + 正在执行任务面板 -->
+    <div class="filter-section">
+      <!-- 正在执行任务面板 -->
+      <aside class="task-panel" id="taskPanel" aria-live="polite">
+        <div class="task-panel-header">
+          <span class="task-panel-dot"></span>
+          <span class="task-panel-title">正在执行任务</span>
+        </div>
+        <div class="task-panel-body">
+          <div class="task-panel-main">
+            <div class="task-panel-info">
+              <div class="task-panel-row">
+                <span class="task-panel-label">报告类型</span>
+                <span class="task-panel-value" id="taskReportType">--</span>
+              </div>
+              <div class="task-panel-row">
+                <span class="task-panel-label">知识获取类型</span>
+                <span class="task-panel-value">AI信息提取</span>
+              </div>
+              <div class="task-panel-row">
+                <span class="task-panel-label">报告期</span>
+                <span class="task-panel-value" id="taskReportPeriod">--</span>
+              </div>
+            </div>
+            <div class="task-panel-progress">
+              <div class="task-panel-progress-meta">
+                <span>公告 <strong id="taskProcessed">0</strong> / <span id="taskTotal">0</span></span>
+                <span class="task-panel-percent" id="taskPercent">0%</span>
+              </div>
+              <div class="task-panel-progress-bar">
+                <div class="task-panel-progress-fill" id="taskProgressFill"></div>
+              </div>
+              <div class="task-panel-progress-meta">
+                <span>已用 <span id="taskElapsed">0分00秒</span></span>
+                <span>剩余 <span id="taskRemaining">计算中</span></span>
+              </div>
+            </div>
+            <div class="task-panel-queue">
+              排队：<strong id="taskQueueCount">2</strong>
+            </div>
+          </div>
+          <div class="task-panel-actions">
+            <button class="btn" id="taskDetailBtn">查看详情</button>
+            <button class="btn" id="taskCancelBtn">取消任务</button>
+          </div>
+        </div>
+      </aside>
+
+      <section class="panel filters">
+        <div class="filter-grid filter-grid--simple">
+          <div class="field">
+            <label for="reportType">报告类型</label>
+            <select id="reportType" class="control filter-select">
+              <option value="">全部报告类型</option>
+              <option value="quarterly">季度报告</option>
+              <option value="semiAnnual">中期报告</option>
+              <option value="annual">年度报告</option>
+            </select>
+          </div>
+          <div class="field knowledge-type-field">
+            <label for="knowledgeType">知识获取类型</label>
+            <select id="knowledgeType" class="control filter-select filter-select--wide">
+              <option value="">全部类型</option>
+              <option value="1">基金管理人及其管理基金的经验</option>
+              <option value="2">期末兼任私募资产管理计划投资经理的基金经理同时管理的产品情况</option>
+              <option value="3">报告期内管理人对本基金持有人数或基金资产净值预警情形的说明</option>
+              <option value="4">盈利投资者数量占比</option>
+              <option value="5">基金管理人、基金托管人的专门基金托管部门的重大人事变动</option>
+              <option value="6">涉及基金管理人、基金财产、基金托管业务的诉讼</option>
+              <option value="7">管理人受调查或处罚等情况</option>
+              <option value="8">管理人相关从业人员受调查或处罚等情况</option>
+              <option value="9">托管人受调查或处罚等情况</option>
+              <option value="10">托管人相关从业人员受调查或处罚等情况</option>
+            </select>
+          </div>
+          <div class="field report-period-field">
+            <label for="reportPeriod">报告期</label>
+            <select id="reportPeriod" class="control filter-select">
+              <option value="">全部报告期</option>
+            </select>
+          </div>
+          <div class="btn-row">
+            <button class="btn schedule-btn" id="scheduleBtn">定时任务配置</button>
+            <button class="btn primary" id="searchBtn">查询</button>
+            <button class="btn" id="resetBtn">重置</button>
+            <button class="btn" id="exportLogBtn">导出日志</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- C.2 列表区 -->
+    <section class="panel">
+      <div class="table-toolbar">
+        <div class="selection-info" id="selectionInfo">已选择 0 条</div>
+        <div class="btn-row">
+          <button class="btn" id="batchExportBtn" disabled>⬇ 批量导出</button>
+          <button class="btn" id="batchLogBtn" disabled>批量查询日志</button>
+          <button class="btn btn-refresh" id="refreshBtn" title="刷新列表"><span class="refresh-icon">↻</span> 刷新</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="check-col"><input id="checkAll" aria-label="全选" type="checkbox"></th>
+              <th class="col-index">序号</th>
+              <th class="type-col">报告类型</th>
+              <th class="knowledge-col">知识获取类型</th>
+              <th class="period-col">报告期</th>
+              <th class="status-col">任务状态</th>
+              <th class="time-col">任务创建时间</th>
+              <th class="time-col">最后修改时间</th>
+              <th class="operator-col">操作人</th>
+              <th class="sticky-right">操作</th>
+            </tr>
+          </thead>
+          <tbody id="resultRows">
+            <!-- 由 js/app.js 根据 js/data.js 动态渲染 -->
+          </tbody>
+        </table>
+        <div class="empty" id="emptyState" hidden>暂无符合条件的提取结果</div>
+      </div>
+
+      <!-- 分页组件 -->
+      <div class="pagination-container" id="pagination">
+        <div class="pagination-info">
+          共 <span class="pagination-total" id="paginationTotal">1</span> 条
+        </div>
+
+        <div class="pagination-size">
+          <select class="control pagination-size-select" id="pageSizeSelect">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+          </select>
+          <span class="pagination-size-suffix">条/页</span>
+        </div>
+
+        <div class="pagination-nav" id="paginationNav">
+          <button class="page-btn page-btn-prev" data-page="prev" title="上一页" disabled>‹</button>
+          <button class="page-btn active" data-page="1">1</button>
+          <button class="page-btn page-btn-next" data-page="next" title="下一页" disabled>›</button>
+        </div>
+
+        <div class="pagination-jump">
+          前往
+          <input type="number" class="control pagination-jump-input" id="jumpInput" min="1">
+          页
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       D. Modal / Toast 浮层
+       ============================================================ -->
+  <div class="modal-mask" id="confirmMask">
+    <div aria-modal="true" aria-labelledby="confirmTitle" class="modal" role="dialog">
+      <h2 id="confirmTitle">确认删除</h2>
+      <p id="confirmText">确定要删除选中的记录吗？</p>
+      <div class="modal-actions">
+        <button class="btn" id="cancelConfirm">取消</button>
+        <button class="btn danger" id="okConfirm">确认删除</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-mask" id="logModalMask">
+    <div aria-modal="true" aria-labelledby="logModalTitle" class="modal log-modal" role="dialog">
+      <div class="log-modal-header">
+        <h2 id="logModalTitle">操作日志</h2>
+        <button class="btn icon-btn" id="closeLogModalX" title="关闭">×</button>
+      </div>
+      <div class="log-modal-body">
+        <table class="log-modal-table">
+          <thead>
+            <tr>
+              <th>操作时间</th>
+              <th>操作人</th>
+              <th>操作类型</th>
+              <th>任务状态</th>
+            </tr>
+          </thead>
+          <tbody id="logModalBody"></tbody>
+        </table>
+      </div>
+      <div class="log-modal-footer">
+        <button class="btn" id="closeLogModalBtn">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-mask" id="batchLogModalMask">
+    <div aria-modal="true" aria-labelledby="batchLogModalTitle" class="modal batch-log-modal" role="dialog">
+      <div class="log-modal-header">
+        <h2 id="batchLogModalTitle">批量查询日志</h2>
+        <button class="btn icon-btn" id="closeBatchLogModalX" title="关闭">×</button>
+      </div>
+      <div class="log-modal-body">
+        <table class="log-modal-table batch-log-table">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>报告类型</th>
+              <th>知识获取类型</th>
+              <th>报告期</th>
+              <th>操作人</th>
+              <th>操作时间</th>
+              <th>操作类型</th>
+            </tr>
+          </thead>
+          <tbody id="batchLogModalBody"></tbody>
+        </table>
+      </div>
+      <div class="log-modal-footer">
+        <button class="btn" id="closeBatchLogModalBtn">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-mask" id="scheduleModalMask">
+    <div aria-modal="true" aria-labelledby="scheduleModalTitle" class="modal schedule-modal" role="dialog">
+      <div class="log-modal-header">
+        <h2 id="scheduleModalTitle">定时任务配置</h2>
+        <button class="btn icon-btn" id="closeScheduleModalX" title="关闭">×</button>
+      </div>
+      <div class="log-modal-body">
+        <table class="log-modal-table schedule-table">
+          <thead>
+            <tr>
+              <th>报告类型</th>
+              <th>报告期</th>
+              <th>是否执行</th>
+              <th>执行时间</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleModalBody"></tbody>
+        </table>
+      </div>
+      <div class="log-modal-footer">
+        <button class="btn" id="cancelScheduleBtn">取消</button>
+        <button class="btn primary" id="saveScheduleBtn">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="./js/data.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
