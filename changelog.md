@@ -113,8 +113,9 @@
 │   ├── component.css       # 公共组件样式
 │   └── style.css           # 页面业务样式
 ├── js/
-│   ├── data.js             # Mock 数据
 │   └── app.js              # 页面交互逻辑
+├── data/
+│   └── data.js             # Mock 数据
 ├── assets/
 │   ├── images/.gitkeep
 │   ├── icons/.gitkeep

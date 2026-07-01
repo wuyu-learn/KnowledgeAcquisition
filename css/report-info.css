@@ -1,0 +1,194 @@
+/* ============================================================
+   公募基金定期报告信息页面补充样式 (report-info.css)
+   仅补充必要样式，主体骨架、筛选区、表格均复用已有 CSS
+   ============================================================ */
+
+/* ============================================================
+   一、页面整体左右布局
+   ============================================================ */
+.report-info-page {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.report-info-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ============================================================
+   二、左侧报告章节导航
+   固定宽度、固定高度、内部滚动、不随右侧内容滚动
+   ============================================================ */
+.report-info-nav {
+  position: sticky;
+  top: 0;
+  width: 260px;
+  height: calc(100vh - 56px - 52px - 32px);
+  flex-shrink: 0;
+  background: var(--biz-panel, #ffffff);
+  border: 1px solid var(--biz-soft-line, #e8edf3);
+  border-radius: var(--biz-radius, 8px);
+  box-shadow: var(--shadow, 0 2px 12px rgba(0, 0, 0, 0.08));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.report-info-nav__header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--biz-soft-line, #e8edf3);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--biz-text, #1f2937);
+  flex-shrink: 0;
+}
+
+.report-info-nav__tabs {
+  display: flex;
+  border-bottom: 1px solid var(--biz-soft-line, #e8edf3);
+  flex-shrink: 0;
+}
+
+.report-info-nav__content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.report-info-nav__tab {
+  flex: 1;
+  padding: 12px 8px;
+  border: none;
+  background: transparent;
+  color: var(--biz-muted, #667085);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.report-info-nav__tab:hover {
+  color: var(--biz-text, #1f2937);
+  background: var(--biz-gray-weak, #eef2f6);
+}
+
+.report-info-nav__tab.is-active {
+  color: var(--biz-primary, #d4a359);
+  border-bottom-color: var(--biz-primary, #d4a359);
+  background: transparent;
+}
+
+.report-info-nav__empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  color: var(--biz-muted, #667085);
+  font-size: 13px;
+}
+
+.report-info-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.report-info-nav__item {
+  width: 100%;
+}
+
+.report-info-nav__btn {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: var(--biz-radius-sm, 4px);
+  border: none;
+  background: transparent;
+  color: var(--biz-text, #1f2937);
+  font-size: 13px;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  position: relative;
+}
+
+.report-info-nav__btn:hover {
+  background: var(--biz-gray-weak, #eef2f6);
+}
+
+.report-info-nav__btn.is-active {
+  background: var(--biz-primary-weak, #f7eede);
+  color: var(--biz-primary-hover, #c19648);
+  font-weight: 500;
+}
+
+.report-info-nav__btn.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 16px;
+  background: var(--biz-primary, #d4a359);
+  border-radius: 0 2px 2px 0;
+}
+
+/* ============================================================
+   三、表格区章节标题
+   ============================================================ */
+.report-info-content__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--biz-text, #1f2937);
+  margin: 0;
+}
+
+/* ============================================================
+   四、基金名称/基金简称列：统一宽度，超出截断
+   ============================================================ */
+.report-info-fund-name {
+  min-width: 120px;
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   五、报告名称列：超出截断
+   ============================================================ */
+.report-info-report-name {
+  min-width: 140px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   六、章节列：超出截断
+   ============================================================ */
+.report-info-chapter {
+  min-width: 160px;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
