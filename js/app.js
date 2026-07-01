@@ -33,6 +33,9 @@
     selectionInfo: document.getElementById('selectionInfo'),
     reportType: document.getElementById('reportType'),
     reportPeriod: document.getElementById('reportPeriod'),
+    reportPeriodDropdown: document.getElementById('reportPeriodDropdown'),
+    reportPeriodTrigger: document.getElementById('reportPeriodTrigger'),
+    reportPeriodMenu: document.getElementById('reportPeriodMenu'),
     knowledgeType: document.getElementById('knowledgeType'),
     paginationTotal: document.getElementById('paginationTotal'),
     logModalMask: document.getElementById('logModalMask'),
@@ -49,6 +52,7 @@
     cancelScheduleBtn: document.getElementById('cancelScheduleBtn'),
     saveScheduleBtn: document.getElementById('saveScheduleBtn'),
     taskPanel: document.getElementById('taskPanel'),
+    taskPanelStatus: document.getElementById('taskPanelStatus'),
     taskReportType: document.getElementById('taskReportType'),
     taskReportPeriod: document.getElementById('taskReportPeriod'),
     taskProcessed: document.getElementById('taskProcessed'),
@@ -57,9 +61,8 @@
     taskProgressFill: document.getElementById('taskProgressFill'),
     taskElapsed: document.getElementById('taskElapsed'),
     taskRemaining: document.getElementById('taskRemaining'),
-    taskQueueCount: document.getElementById('taskQueueCount'),
-    taskDetailBtn: document.getElementById('taskDetailBtn'),
-    taskCancelBtn: document.getElementById('taskCancelBtn')
+    taskCancelBtn: document.getElementById('taskCancelBtn'),
+    taskPanelCloseBtn: document.getElementById('taskPanelCloseBtn')
   };
 
   // ===== 顶栏/标签栏吸顶效果 =====
@@ -146,6 +149,7 @@
         el.value = '';
       }
     });
+    initReportPeriodOptions();
     renderRows();
     showToast('筛选条件已重置');
   });
@@ -154,43 +158,47 @@
     showToast('操作日志导出中...');
   });
 
+  bindClick('exportListBtn', function () {
+    showToast('列表导出中...');
+  });
+
   bindClick('batchExportBtn', function () {
-    showToast('批量导出中...');
+    showToast('批量下载中...');
   });
 
   bindClick('batchLogBtn', function () {
     openBatchLogModal();
   });
 
-  // ===== 生成报告期下拉选项（近5年，按时间倒序平铺） =====
+  // ===== 生成报告期下拉选项：默认短列表，选择报告类型后按类型收窄 =====
   function initReportPeriodOptions() {
     if (!els.reportPeriod) return;
 
     var yearShort = function (year) { return String(year).slice(-2); };
     var items = [];
 
-    function addItem(year, month, priority, value, label) {
+    function addItem(type, year, month, priority, value, label) {
       // 当年份为当前年份时，过滤掉未到报告期末月份的项
       if (year === currentYear && month > currentMonth) return;
-      items.push({ year: year, month: month, priority: priority, value: value, label: label });
+      items.push({ type: type, year: year, month: month, priority: priority, value: value, label: label });
     }
 
     // 季度报告：当前年份往前 4 年，共 5 年
     for (var y = currentYear - 4; y <= currentYear; y++) {
-      addItem(y, 3,  1, 'quarterly-' + y + '-Q1', yearShort(y) + '年1季报');
-      addItem(y, 6,  1, 'quarterly-' + y + '-Q2', yearShort(y) + '年2季报');
-      addItem(y, 9,  1, 'quarterly-' + y + '-Q3', yearShort(y) + '年3季报');
-      addItem(y, 12, 1, 'quarterly-' + y + '-Q4', yearShort(y) + '年4季报');
+      addItem('quarterly', y, 3,  1, 'quarterly-' + y + '-Q1', yearShort(y) + '年1季报');
+      addItem('quarterly', y, 6,  1, 'quarterly-' + y + '-Q2', yearShort(y) + '年2季报');
+      addItem('quarterly', y, 9,  1, 'quarterly-' + y + '-Q3', yearShort(y) + '年3季报');
+      addItem('quarterly', y, 12, 1, 'quarterly-' + y + '-Q4', yearShort(y) + '年4季报');
     }
 
     // 中期报告：当前年份往前 4 年，共 5 年
     for (var y2 = currentYear - 4; y2 <= currentYear; y2++) {
-      addItem(y2, 6, 2, 'semiAnnual-' + y2, yearShort(y2) + '年中报');
+      addItem('semiAnnual', y2, 6, 2, 'semiAnnual-' + y2, yearShort(y2) + '年中报');
     }
 
     // 年度报告：当前年份往前 5 年至前 1 年，共 5 年
     for (var y3 = currentYear - 5; y3 < currentYear; y3++) {
-      addItem(y3, 12, 3, 'annual-' + y3, yearShort(y3) + '年年报');
+      addItem('annual', y3, 12, 3, 'annual-' + y3, yearShort(y3) + '年年报');
     }
 
     // 按时间倒序排列；同期末月份时，披露更晚的中报/年报排在季报前面
@@ -200,12 +208,91 @@
       return b.priority - a.priority;
     });
 
-    els.reportPeriod.innerHTML = '<option value="">全部报告期</option>';
-    items.forEach(function (opt) {
-      var option = document.createElement('option');
-      option.value = opt.value;
-      option.textContent = opt.label;
-      els.reportPeriod.appendChild(option);
+    var selectedType = els.reportType ? els.reportType.value : '';
+    var visibleItems = selectedType
+      ? items.filter(function (item) { return item.type === selectedType; })
+      : items;
+
+    var currentValue = els.reportPeriod.value || '';
+    var hasCurrentValue = currentValue === '' || visibleItems.some(function (item) {
+      return item.value === currentValue;
+    });
+    if (!hasCurrentValue) {
+      els.reportPeriod.value = '';
+      currentValue = '';
+    }
+
+    if (els.reportPeriodMenu) {
+      els.reportPeriodMenu.innerHTML = '';
+      addReportPeriodOption('', '全部报告期', currentValue === '');
+    }
+
+    visibleItems.forEach(function (opt) {
+      addReportPeriodOption(opt.value, opt.label, opt.value === currentValue);
+    });
+
+    updateReportPeriodTrigger();
+  }
+
+  function addReportPeriodOption(value, label, isActive) {
+    if (!els.reportPeriodMenu) return;
+    var option = document.createElement('button');
+    option.type = 'button';
+    option.className = 'custom-select__option' + (isActive ? ' is-active' : '');
+    option.dataset.value = value;
+    option.textContent = label;
+    option.addEventListener('click', function () {
+      setReportPeriodValue(value, label);
+      closeReportPeriodDropdown();
+    });
+    els.reportPeriodMenu.appendChild(option);
+  }
+
+  function setReportPeriodValue(value, label) {
+    if (els.reportPeriod) els.reportPeriod.value = value;
+    if (els.reportPeriodTrigger) els.reportPeriodTrigger.textContent = label || '全部报告期';
+    if (els.reportPeriodMenu) {
+      els.reportPeriodMenu.querySelectorAll('.custom-select__option').forEach(function (option) {
+        option.classList.toggle('is-active', option.dataset.value === value);
+      });
+    }
+  }
+
+  function updateReportPeriodTrigger() {
+    if (!els.reportPeriodTrigger || !els.reportPeriodMenu || !els.reportPeriod) return;
+    var current = els.reportPeriod.value || '';
+    var active = els.reportPeriodMenu.querySelector('[data-value="' + current + '"]');
+    els.reportPeriodTrigger.textContent = active ? active.textContent : '全部报告期';
+  }
+
+  function closeReportPeriodDropdown() {
+    if (els.reportPeriodDropdown) els.reportPeriodDropdown.classList.remove('is-open');
+  }
+
+  function toggleReportPeriodDropdown() {
+    if (!els.reportPeriodDropdown) return;
+    els.reportPeriodDropdown.classList.toggle('is-open');
+  }
+
+  if (els.reportPeriodTrigger) {
+    els.reportPeriodTrigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleReportPeriodDropdown();
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!els.reportPeriodDropdown || els.reportPeriodDropdown.contains(e.target)) return;
+    closeReportPeriodDropdown();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeReportPeriodDropdown();
+  });
+
+  if (els.reportType) {
+    els.reportType.addEventListener('change', function () {
+      initReportPeriodOptions();
     });
   }
 
@@ -216,7 +303,7 @@
     var knowledgeType = els.knowledgeType ? els.knowledgeType.value : '';
 
     return results.filter(function (item) {
-      if (reportType && item.reportType !== reportType) return false;
+      if (reportType && item.reportPeriodKey && item.reportPeriodKey.indexOf(reportType + '-') !== 0) return false;
       if (reportPeriod && item.reportPeriodKey !== reportPeriod) return false;
       if (knowledgeType && item.knowledgeTypeKey !== knowledgeType) return false;
       return true;
@@ -266,7 +353,6 @@
           '<div class="row-actions">' +
             '<button class="link-btn" data-action="view-result" data-id="' + escapeHtml(item.id) + '"' + viewResultDisabled + '>查看结果</button>' +
             '<button class="link-btn" data-action="download" data-id="' + escapeHtml(item.id) + '">下载</button>' +
-            '<button class="link-btn danger" data-action="delete" data-id="' + escapeHtml(item.id) + '">删除</button>' +
             '<button class="link-btn" data-action="log" data-id="' + escapeHtml(item.id) + '">日志</button>' +
             '<button class="link-btn" data-action="retry" data-id="' + escapeHtml(item.id) + '">重试</button>' +
           '</div>' +
@@ -324,12 +410,12 @@
       id: item.id,
       reportType: item.reportType || '',
       reportPeriodLabel: item.reportPeriodLabel || '',
-      total: 120,
+      total: 1000,
       processed: 0,
       progress: 0,
       elapsed: 0,
+      duration: 120,
       remaining: '计算中',
-      queueCount: 2,
       status: 'running'
     };
 
@@ -339,20 +425,18 @@
     if (taskTimer) clearInterval(taskTimer);
     taskTimer = setInterval(function () {
       tickRunningTask();
-    }, 200);
+    }, 6000);
   }
 
   function tickRunningTask() {
     if (!runningTask || runningTask.status !== 'running') return;
 
-    runningTask.progress += 2;
-    if (runningTask.progress > 100) runningTask.progress = 100;
-    runningTask.processed = Math.floor(runningTask.total * runningTask.progress / 100);
-    runningTask.elapsed += 0.2;
+    runningTask.elapsed += 6;
+    runningTask.processed = Math.min(runningTask.total, runningTask.processed + 50);
+    runningTask.progress = Math.floor(runningTask.processed / runningTask.total * 100);
 
     if (runningTask.progress > 5) {
-      var rate = runningTask.elapsed / runningTask.progress;
-      var remainingSeconds = rate * (100 - runningTask.progress);
+      var remainingSeconds = runningTask.duration - runningTask.elapsed;
       runningTask.remaining = formatDuration(remainingSeconds);
     } else {
       runningTask.remaining = '计算中';
@@ -380,11 +464,7 @@
       item.statusLabel = '提取成功';
     }
 
-    setTimeout(function () {
-      hideTaskPanel();
-      renderRows();
-      runningTask = null;
-    }, 800);
+    renderRows();
   }
 
   function cancelRunningTask() {
@@ -414,7 +494,19 @@
     if (els.taskProgressFill) els.taskProgressFill.style.width = runningTask.progress + '%';
     if (els.taskElapsed) els.taskElapsed.textContent = formatDuration(runningTask.elapsed);
     if (els.taskRemaining) els.taskRemaining.textContent = runningTask.remaining;
-    if (els.taskQueueCount) els.taskQueueCount.textContent = runningTask.queueCount;
+    updateTaskStatusUI();
+  }
+
+  function updateTaskStatusUI() {
+    if (!els.taskPanelStatus || !runningTask) return;
+    var statusTextMap = {
+      running: '执行中',
+      success: '已完成',
+      failed: '已取消'
+    };
+    els.taskPanelStatus.textContent = statusTextMap[runningTask.status] || '执行中';
+    els.taskPanelStatus.classList.toggle('is-success', runningTask.status === 'success');
+    els.taskPanelStatus.classList.toggle('is-failed', runningTask.status === 'failed');
   }
 
   function formatDuration(seconds) {
@@ -424,14 +516,15 @@
     return m + '分' + (s < 10 ? '0' : '') + s + '秒';
   }
 
-  if (els.taskDetailBtn) {
-    els.taskDetailBtn.addEventListener('click', function () {
-      if (!runningTask) return;
-      openLogModal(runningTask.id);
-    });
-  }
   if (els.taskCancelBtn) {
     els.taskCancelBtn.addEventListener('click', cancelRunningTask);
+  }
+  if (els.taskPanelCloseBtn) {
+    els.taskPanelCloseBtn.addEventListener('click', function () {
+      if (taskTimer) clearInterval(taskTimer);
+      hideTaskPanel();
+      runningTask = null;
+    });
   }
 
   // ===== 操作日志弹框 =====

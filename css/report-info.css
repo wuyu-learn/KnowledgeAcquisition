@@ -9,7 +9,10 @@
 .report-info-page {
   display: flex;
   gap: 16px;
-  align-items: flex-start;
+  align-items: stretch;
+  height: calc(100vh - 56px - 52px);
+  min-height: calc(100vh - 56px - 52px);
+  overflow: hidden;
 }
 
 .report-info-main {
@@ -18,6 +21,8 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-height: 0;
+  overflow: hidden;
 }
 
 /* ============================================================
@@ -26,9 +31,9 @@
    ============================================================ */
 .report-info-nav {
   position: sticky;
-  top: 0;
+  top: 124px;
   width: 260px;
-  height: calc(100vh - 56px - 52px - 32px);
+  height: 100%;
   flex-shrink: 0;
   background: var(--biz-panel, #ffffff);
   border: 1px solid var(--biz-soft-line, #e8edf3);
@@ -37,6 +42,19 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.report-info-main > .panel:last-child {
+  flex: 1;
+  min-height: 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.report-info-main > .panel:last-child .table-wrap {
+  flex: 1;
+  min-height: 0;
 }
 
 .report-info-nav__header {

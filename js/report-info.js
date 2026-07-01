@@ -14,8 +14,9 @@
     managerName: document.getElementById('managerName'),
     searchBtn: document.getElementById('reportInfoSearchBtn'),
     resetBtn: document.getElementById('reportInfoResetBtn'),
+    exportLogBtn: document.getElementById('reportInfoExportLogBtn'),
+    exportListBtn: document.getElementById('reportInfoExportListBtn'),
     refreshBtn: document.getElementById('reportInfoRefreshBtn'),
-    batchExportBtn: document.getElementById('reportInfoBatchExportBtn'),
     batchLogBtn: document.getElementById('reportInfoBatchLogBtn'),
     selectionInfo: document.getElementById('reportInfoSelectionInfo'),
     tableHead: document.getElementById('reportInfoTableHead'),
@@ -64,6 +65,18 @@
 
   function isLongTextColumn(col) {
     return /段落内容|整改措施|处罚的依据|调查处罚情况/.test(col);
+  }
+
+  if (typeof window.showToast !== 'function') {
+    window.showToast = function (message) {
+      var toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(function () {
+        toast.classList.remove('show');
+      }, 2500);
+    };
   }
 
   // ===== 获取当前 Sheet =====
@@ -151,6 +164,7 @@
     });
 
     els.navContent.appendChild(listEl);
+    updateActiveNav(currentSheetIndex);
   }
 
   function switchNavTab(tabKey) {
@@ -473,7 +487,6 @@
         '<div class="row-actions">' +
         '<button class="link-btn" type="button" data-action="view">查看</button>' +
         '<button class="link-btn" type="button" data-action="edit">编辑</button>' +
-        '<button class="link-btn danger" type="button" data-action="delete">删除</button>' +
         '</div>';
       tr.appendChild(actionTd);
 
@@ -513,7 +526,6 @@
     var count = els.tableBody.querySelectorAll('[data-check]:checked').length;
     els.selectionInfo.textContent = '已选择 ' + count + ' 条';
 
-    if (els.batchExportBtn) els.batchExportBtn.disabled = count < 2;
     if (els.batchLogBtn) els.batchLogBtn.disabled = count < 2;
   }
 
@@ -544,6 +556,18 @@
       currentPage = 1;
       renderTable();
     });
+
+    if (els.exportLogBtn) {
+      els.exportLogBtn.addEventListener('click', function () {
+        window.showToast && window.showToast('日志导出中...');
+      });
+    }
+
+    if (els.exportListBtn) {
+      els.exportListBtn.addEventListener('click', function () {
+        window.showToast && window.showToast('列表导出中...');
+      });
+    }
 
     if (els.refreshBtn) {
       els.refreshBtn.addEventListener('click', function () {

@@ -125,6 +125,8 @@
             <div class="btn-row">
               <button class="btn primary" id="reportInfoSearchBtn" type="button">查询</button>
               <button class="btn" id="reportInfoResetBtn" type="button">重置</button>
+              <button class="btn" id="reportInfoExportLogBtn" type="button">导出日志</button>
+              <button class="btn" id="reportInfoExportListBtn" type="button">导出列表</button>
             </div>
           </div>
         </section>
@@ -135,7 +137,6 @@
         <div class="table-toolbar">
           <div class="selection-info" id="reportInfoSelectionInfo">已选择 0 条</div>
           <div class="btn-row">
-            <button class="btn" id="reportInfoBatchExportBtn" disabled>⬇ 批量导出</button>
             <button class="btn" id="reportInfoBatchLogBtn" disabled>批量查询日志</button>
             <button class="btn btn-refresh" id="reportInfoRefreshBtn" title="刷新列表" type="button"><span class="refresh-icon">↻</span> 刷新</button>
           </div>
@@ -185,6 +186,8 @@
     </div>
 
   </main>
+
+  <div class="toast" id="toast"></div>
 
   <!-- 功能导览面板挂载点 -->
   <div id="demo-nav-root"></div>

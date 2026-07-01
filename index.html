@@ -77,9 +77,10 @@
     <div class="filter-section">
       <!-- 正在执行任务面板 -->
       <aside class="task-panel" id="taskPanel" aria-live="polite">
+        <button class="task-panel-close" id="taskPanelCloseBtn" type="button" aria-label="关闭正在执行任务">×</button>
         <div class="task-panel-header">
-          <span class="task-panel-dot"></span>
-          <span class="task-panel-title">正在执行任务</span>
+          <span class="task-panel-title">知识提取任务</span>
+          <span class="task-panel-status" id="taskPanelStatus">执行中</span>
         </div>
         <div class="task-panel-body">
           <div class="task-panel-main">
@@ -87,10 +88,6 @@
               <div class="task-panel-row">
                 <span class="task-panel-label">报告类型</span>
                 <span class="task-panel-value" id="taskReportType">--</span>
-              </div>
-              <div class="task-panel-row">
-                <span class="task-panel-label">知识获取类型</span>
-                <span class="task-panel-value">AI信息提取</span>
               </div>
               <div class="task-panel-row">
                 <span class="task-panel-label">报告期</span>
@@ -110,12 +107,8 @@
                 <span>剩余 <span id="taskRemaining">计算中</span></span>
               </div>
             </div>
-            <div class="task-panel-queue">
-              排队：<strong id="taskQueueCount">2</strong>
-            </div>
           </div>
           <div class="task-panel-actions">
-            <button class="btn" id="taskDetailBtn">查看详情</button>
             <button class="btn" id="taskCancelBtn">取消任务</button>
           </div>
         </div>
@@ -150,15 +143,18 @@
           </div>
           <div class="field report-period-field">
             <label for="reportPeriod">报告期</label>
-            <select id="reportPeriod" class="control filter-select">
-              <option value="">全部报告期</option>
-            </select>
+            <div class="custom-select" id="reportPeriodDropdown">
+              <input type="hidden" id="reportPeriod" value="">
+              <button class="control custom-select__trigger" id="reportPeriodTrigger" type="button">全部报告期</button>
+              <div class="custom-select__menu" id="reportPeriodMenu"></div>
+            </div>
           </div>
           <div class="btn-row">
             <button class="btn schedule-btn" id="scheduleBtn">定时任务配置</button>
             <button class="btn primary" id="searchBtn">查询</button>
             <button class="btn" id="resetBtn">重置</button>
             <button class="btn" id="exportLogBtn">导出日志</button>
+            <button class="btn" id="exportListBtn">导出列表</button>
           </div>
         </div>
       </section>
@@ -169,7 +165,7 @@
       <div class="table-toolbar">
         <div class="selection-info" id="selectionInfo">已选择 0 条</div>
         <div class="btn-row">
-          <button class="btn" id="batchExportBtn" disabled>⬇ 批量导出</button>
+          <button class="btn" id="batchExportBtn" disabled>⬇ 批量下载</button>
           <button class="btn" id="batchLogBtn" disabled>批量查询日志</button>
           <button class="btn btn-refresh" id="refreshBtn" title="刷新列表"><span class="refresh-icon">↻</span> 刷新</button>
         </div>
