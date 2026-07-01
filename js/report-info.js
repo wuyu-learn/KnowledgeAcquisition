@@ -25,7 +25,13 @@
     paginationTotal: document.getElementById('reportInfoPaginationTotal'),
     pageSizeSelect: document.getElementById('reportInfoPageSizeSelect'),
     paginationNav: document.getElementById('reportInfoPaginationNav'),
-    jumpInput: document.getElementById('reportInfoJumpInput')
+    jumpInput: document.getElementById('reportInfoJumpInput'),
+    recordModalMask: document.getElementById('recordModalMask'),
+    recordModalTitle: document.getElementById('recordModalTitle'),
+    recordModalBody: document.getElementById('recordModalBody'),
+    recordModalCloseX: document.getElementById('recordModalCloseX'),
+    recordModalCancelBtn: document.getElementById('recordModalCancelBtn'),
+    recordModalSaveBtn: document.getElementById('recordModalSaveBtn')
   };
 
   var currentSheetIndex = 0;
@@ -34,6 +40,8 @@
   var pageSize = 10;
   var currentNavTab = 'mid';
   var navButtons = [];
+  var editingRow = null;
+  var editableColumns = [];
 
   function createEl(tag, className) {
     var el = document.createElement(tag);
@@ -485,8 +493,8 @@
       var actionTd = createEl('td', 'sticky-right');
       actionTd.innerHTML =
         '<div class="row-actions">' +
-        '<button class="link-btn" type="button" data-action="view">查看</button>' +
-        '<button class="link-btn" type="button" data-action="edit">编辑</button>' +
+        '<button class="link-btn" type="button" data-action="view" data-row-index="' + globalIndex + '">查看</button>' +
+        '<button class="link-btn" type="button" data-action="edit" data-row-index="' + globalIndex + '">编辑</button>' +
         '</div>';
       tr.appendChild(actionTd);
 
@@ -586,10 +594,106 @@
       if (!btn) return;
 
       var action = btn.getAttribute('data-action');
-      if (action === 'edit') {
-        // V1：编辑入口，暂不做实际功能
-        window.showToast && window.showToast('编辑功能开发中');
+      var rowIndex = parseInt(btn.getAttribute('data-row-index'), 10);
+      if (action === 'view' || action === 'edit') {
+        openRecordModal(action, rowIndex);
       }
+    });
+  }
+
+  function getRowByFilteredIndex(rowIndex) {
+    var rows = getFilteredRows();
+    if (isNaN(rowIndex) || rowIndex < 0 || rowIndex >= rows.length) return null;
+    return rows[rowIndex];
+  }
+
+  function getEditableColumns(columns) {
+    var hasContentIndex = columns.indexOf('是否有内容');
+    if (hasContentIndex === -1) return [];
+    return columns.slice(hasContentIndex + 1);
+  }
+
+  function openRecordModal(mode, rowIndex) {
+    var sheet = getCurrentSheet();
+    var row = getRowByFilteredIndex(rowIndex);
+    if (!sheet || !row) return;
+
+    var columns = Array.isArray(sheet.columns) ? sheet.columns : [];
+    editingRow = mode === 'edit' ? row : null;
+    editableColumns = mode === 'edit' ? getEditableColumns(columns) : [];
+
+    if (els.recordModalTitle) {
+      els.recordModalTitle.textContent = mode === 'edit' ? '编辑记录' : '查看记录';
+    }
+    if (els.recordModalSaveBtn) {
+      els.recordModalSaveBtn.hidden = mode !== 'edit';
+      els.recordModalSaveBtn.style.display = mode === 'edit' ? '' : 'none';
+    }
+    if (els.recordModalCancelBtn) {
+      els.recordModalCancelBtn.textContent = mode === 'edit' ? '取消' : '关闭';
+    }
+
+    renderRecordModalFields(row, columns, mode);
+    if (els.recordModalMask) els.recordModalMask.classList.add('open');
+  }
+
+  function renderRecordModalFields(row, columns, mode) {
+    if (!els.recordModalBody) return;
+    els.recordModalBody.innerHTML = '';
+
+    var grid = createEl('div', 'record-modal__grid');
+    columns.forEach(function (col) {
+      var value = formatCellValue(row[col]);
+      var isEditable = mode === 'edit' && editableColumns.indexOf(col) !== -1;
+      var isWide = isLongTextColumn(col) || String(value).length > 60;
+      var field = createEl('div', 'record-modal__field' + (isWide ? ' record-modal__field--wide' : ''));
+      var label = createEl('label', 'record-modal__label');
+      label.textContent = col;
+      field.appendChild(label);
+
+      if (isEditable) {
+        var control = createEl(isWide ? 'textarea' : 'input', 'record-modal__control');
+        control.setAttribute('data-field', col);
+        if (!isWide) control.setAttribute('type', 'text');
+        control.value = value === '--' ? '' : value;
+        field.appendChild(control);
+      } else {
+        var valueEl = createEl('div', 'record-modal__value');
+        valueEl.textContent = value;
+        field.appendChild(valueEl);
+      }
+
+      grid.appendChild(field);
+    });
+
+    els.recordModalBody.appendChild(grid);
+  }
+
+  function closeRecordModal() {
+    if (els.recordModalMask) els.recordModalMask.classList.remove('open');
+    editingRow = null;
+    editableColumns = [];
+  }
+
+  function saveRecordModal() {
+    if (!editingRow || !els.recordModalBody) return;
+    els.recordModalBody.querySelectorAll('[data-field]').forEach(function (control) {
+      var field = control.getAttribute('data-field');
+      if (editableColumns.indexOf(field) !== -1) {
+        editingRow[field] = control.value;
+      }
+    });
+    closeRecordModal();
+    renderTable();
+    window.showToast && window.showToast('记录已保存');
+  }
+
+  if (els.recordModalCloseX) els.recordModalCloseX.addEventListener('click', closeRecordModal);
+  if (els.recordModalCancelBtn) els.recordModalCancelBtn.addEventListener('click', closeRecordModal);
+  if (els.recordModalSaveBtn) els.recordModalSaveBtn.addEventListener('click', saveRecordModal);
+  if (els.recordModalMask) {
+    els.recordModalMask.addEventListener('click', function (e) {
+      if (e.target === els.recordModalMask) closeRecordModal();
     });
   }
 

@@ -31,12 +31,21 @@
 
     /* 筛选区 label 与输入框间距修复 */
     .filter-grid--simple .field {
-      flex-basis: 360px;
-      max-width: 380px;
+      flex-basis: 430px;
+      max-width: 460px;
       gap: 8px;
+    }
+    .filter-grid--simple .field label {
+      width: 112px;
     }
     .filter-grid--simple input.filter-input {
       min-width: 260px;
+    }
+    .filter-grid--simple .btn-row {
+      flex: 0 0 100%;
+      justify-content: flex-end;
+      margin-left: 0;
+      margin-top: 8px;
     }
   </style>
 </head>

@@ -62,8 +62,15 @@
     taskElapsed: document.getElementById('taskElapsed'),
     taskRemaining: document.getElementById('taskRemaining'),
     taskCancelBtn: document.getElementById('taskCancelBtn'),
-    taskPanelCloseBtn: document.getElementById('taskPanelCloseBtn')
+    taskPanelCloseBtn: document.getElementById('taskPanelCloseBtn'),
+    confirmMask: document.getElementById('confirmMask'),
+    confirmTitle: document.getElementById('confirmTitle'),
+    confirmText: document.getElementById('confirmText'),
+    cancelConfirm: document.getElementById('cancelConfirm'),
+    okConfirm: document.getElementById('okConfirm')
   };
+
+  var pendingConfirmAction = null;
 
   // ===== 顶栏/标签栏吸顶效果 =====
   function initSticky(el, className, threshold) {
@@ -352,7 +359,7 @@
         '<td class="sticky-right">' +
           '<div class="row-actions">' +
             '<button class="link-btn" data-action="view-result" data-id="' + escapeHtml(item.id) + '"' + viewResultDisabled + '>查看结果</button>' +
-            '<button class="link-btn" data-action="download" data-id="' + escapeHtml(item.id) + '">下载</button>' +
+            '<button class="link-btn" data-action="download" data-id="' + escapeHtml(item.id) + '">下载结果</button>' +
             '<button class="link-btn" data-action="log" data-id="' + escapeHtml(item.id) + '">日志</button>' +
             '<button class="link-btn" data-action="retry" data-id="' + escapeHtml(item.id) + '">重试</button>' +
           '</div>' +
@@ -398,13 +405,16 @@
       showToast('未找到对应章节');
       return;
     }
-    var url = './report-info.html?chapter=' + encodeURIComponent(chapterName);
+    var url = './index.html?chapter=' + encodeURIComponent(chapterName);
     window.location.href = url;
   }
 
   // ===== 正在执行任务面板 =====
   function startRunningTask(item) {
-    if (runningTask && runningTask.status === 'running') return;
+    if (runningTask && runningTask.status === 'running') {
+      showToast('当前有任务正在进行中，请稍后重试');
+      return;
+    }
 
     runningTask = {
       id: item.id,
@@ -517,13 +527,59 @@
   }
 
   if (els.taskCancelBtn) {
-    els.taskCancelBtn.addEventListener('click', cancelRunningTask);
+    els.taskCancelBtn.addEventListener('click', function () {
+      requestTaskPanelClose(cancelRunningTask);
+    });
   }
   if (els.taskPanelCloseBtn) {
     els.taskPanelCloseBtn.addEventListener('click', function () {
-      if (taskTimer) clearInterval(taskTimer);
-      hideTaskPanel();
-      runningTask = null;
+      requestTaskPanelClose(function () {
+        if (taskTimer) clearInterval(taskTimer);
+        hideTaskPanel();
+        runningTask = null;
+      });
+    });
+  }
+
+  function requestTaskPanelClose(action) {
+    if (runningTask && runningTask.status === 'running') {
+      openConfirmModal({
+        title: '确认取消任务',
+        text: '当前任务正在进行中，确定要取消吗？',
+        okText: '确认取消',
+        onConfirm: action
+      });
+      return;
+    }
+    action();
+  }
+
+  function openConfirmModal(options) {
+    pendingConfirmAction = typeof options.onConfirm === 'function' ? options.onConfirm : null;
+    if (els.confirmTitle) els.confirmTitle.textContent = options.title || '确认操作';
+    if (els.confirmText) els.confirmText.textContent = options.text || '确定要继续吗？';
+    if (els.okConfirm) els.okConfirm.textContent = options.okText || '确认';
+    if (els.confirmMask) els.confirmMask.classList.add('open');
+  }
+
+  function closeConfirmModal() {
+    if (els.confirmMask) els.confirmMask.classList.remove('open');
+    pendingConfirmAction = null;
+  }
+
+  if (els.cancelConfirm) {
+    els.cancelConfirm.addEventListener('click', closeConfirmModal);
+  }
+  if (els.okConfirm) {
+    els.okConfirm.addEventListener('click', function () {
+      var action = pendingConfirmAction;
+      closeConfirmModal();
+      if (action) action();
+    });
+  }
+  if (els.confirmMask) {
+    els.confirmMask.addEventListener('click', function (e) {
+      if (e.target === els.confirmMask) closeConfirmModal();
     });
   }
 

@@ -8,16 +8,19 @@
     {
       id: 'extract',
       label: '定向知识提取任务',
-      url: './index.html'
+      desc: '发起取数、重试任务、下载提取结果',
+      url: './extract-task.html'
     },
     {
       id: 'report-info',
       label: '公募基金定期报告信息',
-      url: './report-info.html'
+      desc: '查看、筛选、编辑、导出结构化结果',
+      url: './index.html'
     },
     {
       id: 'fund-manager',
       label: '基金管理人',
+      desc: '查看某时间节点全部管理人及基金范围',
       url: './fund-manager.html'
     }
   ];
@@ -25,9 +28,9 @@
   // ===== 工具函数 =====
   function getCurrentPageId() {
     var path = window.location.pathname;
-    if (path.indexOf('report-info.html') !== -1) return 'report-info';
+    if (path.indexOf('extract-task.html') !== -1) return 'extract';
     if (path.indexOf('fund-manager.html') !== -1) return 'fund-manager';
-    return 'extract';
+    return 'report-info';
   }
 
   // ===== 状态 =====
@@ -86,22 +89,80 @@
   header.appendChild(closeBtn);
   panel.appendChild(header);
 
+  // 页面关系简图
+  var relation = createEl('section', 'demo-panel__relation');
+  var relationTitle = createEl('div', 'demo-panel__relation-title');
+  relationTitle.textContent = '页面关系';
+  var relationGraph = createEl('div', 'demo-relation-graph');
+
+  [
+    { name: '基金管理人', desc: '时间节点全量管理人' },
+    { name: '知识提取任务', desc: '按章节/维度取数' },
+    { name: '报告信息', desc: '结构化查询/编辑/导出' }
+  ].forEach(function (item, index) {
+    var node = createEl('div', 'demo-relation-node');
+    var name = createEl('span', 'demo-relation-node__name');
+    var desc = createEl('span', 'demo-relation-node__desc');
+    name.textContent = item.name;
+    desc.textContent = item.desc;
+    node.appendChild(name);
+    node.appendChild(desc);
+    relationGraph.appendChild(node);
+
+    if (index < 2) {
+      var arrow = createEl('div', 'demo-relation-arrow');
+      arrow.textContent = '↓';
+      relationGraph.appendChild(arrow);
+    }
+  });
+
+  var scope = createEl('div', 'demo-relation-scope');
+  var scopeNode = createEl('div', 'demo-relation-scope__node');
+  var scopeName = createEl('span', 'demo-relation-scope__name');
+  var scopeDesc = createEl('span', 'demo-relation-scope__desc');
+  var scopeFlow = createEl('span', 'demo-relation-scope__flow');
+  scopeName.textContent = '取数范围';
+  scopeDesc.textContent = '管理人维度取任一普通公募基金报告，产品维度取该管理人全部普通公募基金报告';
+  scopeFlow.textContent = '管理人 → 基金';
+  scopeNode.appendChild(scopeName);
+  scopeNode.appendChild(scopeDesc);
+  scope.appendChild(scopeNode);
+  scope.appendChild(scopeFlow);
+
+  relation.appendChild(relationTitle);
+  relation.appendChild(relationGraph);
+  relation.appendChild(scope);
+  panel.appendChild(relation);
+
   // 页面导航
   var nav = createEl('nav', 'demo-panel__nav');
+  var navTitle = createEl('div', 'demo-panel__nav-title');
+  navTitle.textContent = '页面切换';
   var navList = createEl('ul', 'demo-panel__nav-list');
   var navButtons = [];
 
   demoPages.forEach(function (page) {
     var li = createEl('li', 'demo-panel__nav-item');
     var btn = createEl('button', 'demo-panel__nav-btn');
+    var btnMain = createEl('span', 'demo-panel__nav-main');
+    var btnLabel = createEl('span', 'demo-panel__nav-label');
+    var btnBadge = createEl('span', 'demo-panel__nav-badge');
+    var btnDesc = createEl('span', 'demo-panel__nav-desc');
     btn.setAttribute('type', 'button');
     btn.setAttribute('data-page', page.id);
-    btn.textContent = page.label;
+    btnLabel.textContent = page.label;
+    btnBadge.textContent = '当前';
+    btnDesc.textContent = page.desc;
+    btnMain.appendChild(btnLabel);
+    btnMain.appendChild(btnBadge);
+    btn.appendChild(btnMain);
+    btn.appendChild(btnDesc);
     li.appendChild(btn);
     navList.appendChild(li);
     navButtons.push(btn);
   });
 
+  nav.appendChild(navTitle);
   nav.appendChild(navList);
   panel.appendChild(nav);
 

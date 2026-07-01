@@ -210,3 +210,84 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* ============================================================
+   七、记录查看/编辑弹框
+   ============================================================ */
+.record-modal {
+  width: min(880px, 92vw);
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.record-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--biz-soft-line, #e8edf3);
+}
+
+.record-modal__header h2 {
+  margin: 0;
+}
+
+.record-modal__body {
+  padding: 16px 18px;
+  overflow-y: auto;
+}
+
+.record-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.record-modal__field {
+  min-width: 0;
+}
+
+.record-modal__field--wide {
+  grid-column: 1 / -1;
+}
+
+.record-modal__label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--biz-muted, #667085);
+  font-size: 12px;
+}
+
+.record-modal__value,
+.record-modal__control {
+  width: 100%;
+  min-height: 34px;
+  padding: 8px 10px;
+  border: 1px solid var(--biz-soft-line, #e8edf3);
+  border-radius: 6px;
+  background: #f8fafc;
+  color: var(--biz-text, #1f2937);
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.record-modal__control {
+  background: #fff;
+  border-color: var(--biz-line, #d8dee8);
+  outline: none;
+  resize: vertical;
+}
+
+textarea.record-modal__control {
+  min-height: 132px;
+}
+
+.record-modal__footer {
+  padding: 12px 18px 16px;
+  border-top: 1px solid var(--biz-soft-line, #e8edf3);
+}

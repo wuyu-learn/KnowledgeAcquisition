@@ -13,7 +13,9 @@
 
 | 文件 | 说明 |
 |---|---|
-| `index.html` | 页面主文件：整体结构与内容布局 |
+| `index.html` | 公募基金定期报告信息页面（首页） |
+| `extract-task.html` | 定向知识提取任务页面 |
+| `fund-manager.html` | 基金管理人页面 |
 | `css/style.css` | 页面业务样式（筛选区、表格区、布局） |
 | `css/component.css` | 公共组件样式（顶栏、页签、按钮、分页等） |
 | `data/data.js` | Mock 数据：演示用模拟数据 |
@@ -46,7 +48,9 @@ npx serve .
 后续可参照需求说明中规划的目录结构：
 
 ```
-├── index.html        # 主页
+├── index.html        # 公募基金定期报告信息页面（首页）
+├── extract-task.html # 定向知识提取任务页面
+├── fund-manager.html # 基金管理人页面
 ├── css/              # 样式
 ├── js/               # 交互逻辑
 ├── data/             # 演示数据
