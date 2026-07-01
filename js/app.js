@@ -10,6 +10,20 @@
   var currentYear = new Date().getFullYear();
   var currentMonth = new Date().getMonth() + 1;
 
+  // 知识获取类型 → 公募基金定期报告信息页面章节名称映射
+  var knowledgeTypeToChapter = {
+    '基金管理人及其管理基金的经验': '基金管理人及其管理基金的经验',
+    '期末兼任私募资产管理计划投资经理的基金经理同时管理的产品情况': '期末兼任私募资产管理计划投资经理的基金经理同时管理的产品情况',
+    '报告期内管理人对本基金持有人数或基金资产净值预警情形的说明': '报告期内管理人对本基金持有人数或基金资产净值预警情形的说明',
+    '盈利投资者数量占比': '盈利投资者数量占比',
+    '基金管理人、基金托管人的专门基金托管部门的重大人事变动': '基金管理人、基金托管人的专门基金托管部门的重大人事变动',
+    '涉及基金管理人、基金财产、基金托管业务的诉讼': '涉及基金管理人、基金财产、基金托管业务的诉讼',
+    '管理人受调查或处罚等情况': '管理人及从业人员调查处罚情况',
+    '管理人相关从业人员受调查或处罚等情况': '管理人及从业人员调查处罚情况',
+    '托管人受调查或处罚等情况': '托管人受调查或处罚等情况',
+    '托管人相关从业人员受调查或处罚等情况': '托管人相关从业人员受调查或处罚等情况'
+  };
+
   var runningTask = null;
   var taskTimer = null;
 
@@ -235,6 +249,8 @@
       var operator = item.operator || '系统';
       var statusClass = item.status === 'failed' ? 'red' : 'green';
       var statusText = item.statusLabel || (item.status === 'failed' ? '提取失败' : '提取成功');
+      var isSuccess = item.status === 'success';
+      var viewResultDisabled = isSuccess ? '' : ' disabled';
       tr.innerHTML =
         '<td class="check-col"><input type="checkbox" data-check="' + escapeHtml(item.id) + '" aria-label="选择"></td>' +
         '<td class="col-index">' + (index + 1) + '</td>' +
@@ -248,6 +264,7 @@
         '<td class="operator-col">' + escapeHtml(operator) + '</td>' +
         '<td class="sticky-right">' +
           '<div class="row-actions">' +
+            '<button class="link-btn" data-action="view-result" data-id="' + escapeHtml(item.id) + '"' + viewResultDisabled + '>查看结果</button>' +
             '<button class="link-btn" data-action="download" data-id="' + escapeHtml(item.id) + '">下载</button>' +
             '<button class="link-btn danger" data-action="delete" data-id="' + escapeHtml(item.id) + '">删除</button>' +
             '<button class="link-btn" data-action="log" data-id="' + escapeHtml(item.id) + '">日志</button>' +
@@ -263,6 +280,15 @@
   // ===== 行内按钮事件绑定 =====
   function bindRowActions() {
     if (!els.rows) return;
+    els.rows.querySelectorAll('[data-action="view-result"]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.disabled) return;
+        var id = btn.dataset.id;
+        var item = results.find(function (r) { return String(r.id) === String(id); });
+        if (!item) return;
+        viewExtractResult(item);
+      });
+    });
     els.rows.querySelectorAll('[data-action="log"]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         openLogModal(btn.dataset.id);
@@ -276,6 +302,18 @@
         startRunningTask(item);
       });
     });
+  }
+
+  // ===== 查看结果：跳转公募基金定期报告信息页并选中对应章节 =====
+  function viewExtractResult(item) {
+    var knowledgeText = item.knowledgeTypeName || knowledgeTypeMap[item.knowledgeTypeKey] || '';
+    var chapterName = knowledgeTypeToChapter[knowledgeText] || '';
+    if (!chapterName) {
+      showToast('未找到对应章节');
+      return;
+    }
+    var url = './report-info.html?chapter=' + encodeURIComponent(chapterName);
+    window.location.href = url;
   }
 
   // ===== 正在执行任务面板 =====

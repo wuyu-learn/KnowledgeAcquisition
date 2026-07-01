@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>信披-定向知识获取</title>
+  <title>信披-定向知识提取任务</title>
   <link rel="stylesheet" href="./css/component.css">
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/demo-nav.css">
 </head>
 <body>
 
@@ -62,7 +63,7 @@
   <div class="system-tabs-bar" id="tabBar">
     <div class="breadcrumb-trail" aria-label="位置">工作台</div>
     <div class="dynamic-tab-item active" data-tab="extract">
-      <span class="tab-title">定向知识提取</span>
+      <span class="tab-title">定向知识提取任务</span>
       <span class="tab-close-icon" title="关闭标签" role="button" aria-label="关闭">×</span>
     </div>
   </div>
@@ -191,7 +192,7 @@
             </tr>
           </thead>
           <tbody id="resultRows">
-            <!-- 由 js/app.js 根据 js/data.js 动态渲染 -->
+            <!-- 由 js/app.js 根据 data/data.js 动态渲染 -->
           </tbody>
         </table>
         <div class="empty" id="emptyState" hidden>暂无符合条件的提取结果</div>
@@ -324,7 +325,11 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="./js/data.js"></script>
+  <!-- 演示导航辅助面板挂载点 -->
+  <div id="demo-nav-root"></div>
+
+  <script src="./data/data.js"></script>
   <script src="./js/app.js"></script>
+  <script src="./js/demo-nav.js"></script>
 </body>
 </html>
