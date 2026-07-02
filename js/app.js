@@ -9,6 +9,7 @@
   var scheduledTasks = Array.isArray(window.__SCHEDULED_TASKS__) ? window.__SCHEDULED_TASKS__ : [];
   var currentYear = new Date().getFullYear();
   var currentMonth = new Date().getMonth() + 1;
+  var taskDemoMode = getTaskDemoMode();
 
   // 知识获取类型 → 公募基金定期报告信息页面章节名称映射
   var knowledgeTypeToChapter = {
@@ -26,6 +27,15 @@
 
   var runningTask = null;
   var taskTimer = null;
+  var TASK_STATUS_META = {
+    pending: { text: '待执行', tagClass: 'cyan', panelClass: '' },
+    running: { text: '执行中', tagClass: 'cyan', panelClass: '' },
+    canceling: { text: '取消中', tagClass: 'cyan', panelClass: '' },
+    canceled: { text: '已取消', tagClass: 'red', panelClass: 'is-failed' },
+    success: { text: '已完成', tagClass: 'green', panelClass: 'is-success' },
+    failed: { text: '执行失败', tagClass: 'red', panelClass: 'is-failed' }
+  };
+  var ACTIVE_TASK_STATUSES = { pending: true, running: true, canceling: true };
 
   var els = {
     rows: document.getElementById('resultRows'),
@@ -71,6 +81,23 @@
   };
 
   var pendingConfirmAction = null;
+
+  function getTaskDemoMode() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('taskMode') || 'running';
+  }
+
+  function applyTaskDemoMode() {
+    if (taskDemoMode !== 'idle') return;
+    results.forEach(function (item) {
+      if (!ACTIVE_TASK_STATUSES[item.status]) return;
+      item.status = 'success';
+      item.statusLabel = getTaskStatusMeta('success').text;
+      item.taskProcessed = item.taskTotal || 1000;
+      item.taskElapsed = item.taskDuration || 120;
+      item.lastModifyTime = item.lastModifyTime || formatDateTime(new Date());
+    });
+  }
 
   // ===== 顶栏/标签栏吸顶效果 =====
   function initSticky(el, className, threshold) {
@@ -341,8 +368,9 @@
       var createTime = item.createTime || '--';
       var lastModifyTime = item.lastModifyTime || '--';
       var operator = item.operator || '系统';
-      var statusClass = item.status === 'failed' ? 'red' : 'green';
-      var statusText = item.statusLabel || (item.status === 'failed' ? '提取失败' : '提取成功');
+      var statusMeta = getTaskStatusMeta(item.status);
+      var statusClass = statusMeta.tagClass;
+      var statusText = item.statusLabel || statusMeta.text;
       var isSuccess = item.status === 'success';
       var viewResultDisabled = isSuccess ? '' : ' disabled';
       tr.innerHTML =
@@ -368,6 +396,10 @@
     });
 
     bindRowActions();
+  }
+
+  function getTaskStatusMeta(status) {
+    return TASK_STATUS_META[status] || TASK_STATUS_META.running;
   }
 
   // ===== 行内按钮事件绑定 =====
@@ -410,32 +442,79 @@
   }
 
   // ===== 正在执行任务面板 =====
+  function isActiveTask(task) {
+    return !!(task && ACTIVE_TASK_STATUSES[task.status]);
+  }
+
   function startRunningTask(item) {
-    if (runningTask && runningTask.status === 'running') {
+    if (isActiveTask(runningTask)) {
       showToast('当前有任务正在进行中，请稍后重试');
       return;
     }
+
+    item.status = 'running';
+    item.statusLabel = getTaskStatusMeta('running').text;
+    item.taskTotal = 1000;
+    item.taskProcessed = 0;
+    item.taskElapsed = 0;
+    item.taskDuration = 120;
+    item.lastModifyTime = formatDateTime(new Date());
 
     runningTask = {
       id: item.id,
       reportType: item.reportType || '',
       reportPeriodLabel: item.reportPeriodLabel || '',
-      total: 1000,
-      processed: 0,
+      total: item.taskTotal,
+      processed: item.taskProcessed,
       progress: 0,
-      elapsed: 0,
-      duration: 120,
+      elapsed: item.taskElapsed,
+      duration: item.taskDuration,
       remaining: '计算中',
       status: 'running'
     };
 
     showTaskPanel();
     updateTaskPanelUI();
+    renderRows();
 
     if (taskTimer) clearInterval(taskTimer);
     taskTimer = setInterval(function () {
       tickRunningTask();
     }, 6000);
+  }
+
+  function initExistingActiveTask() {
+    var item = results.find(function (r) { return ACTIVE_TASK_STATUSES[r.status]; });
+    if (!item) return;
+
+    var total = item.taskTotal || 1000;
+    var processed = Math.min(total, item.taskProcessed || 0);
+    var elapsed = item.taskElapsed || 0;
+    var duration = item.taskDuration || 120;
+    var progress = total ? Math.floor(processed / total * 100) : 0;
+
+    runningTask = {
+      id: item.id,
+      reportType: item.reportType || '',
+      reportPeriodLabel: item.reportPeriodLabel || '',
+      total: total,
+      processed: processed,
+      progress: progress,
+      elapsed: elapsed,
+      duration: duration,
+      remaining: progress > 5 ? formatDuration(duration - elapsed) : '计算中',
+      status: item.status
+    };
+
+    showTaskPanel();
+    updateTaskPanelUI();
+
+    if (runningTask.status === 'running') {
+      if (taskTimer) clearInterval(taskTimer);
+      taskTimer = setInterval(function () {
+        tickRunningTask();
+      }, 6000);
+    }
   }
 
   function tickRunningTask() {
@@ -444,6 +523,7 @@
     runningTask.elapsed += 6;
     runningTask.processed = Math.min(runningTask.total, runningTask.processed + 50);
     runningTask.progress = Math.floor(runningTask.processed / runningTask.total * 100);
+    syncRunningTaskToResult();
 
     if (runningTask.progress > 5) {
       var remainingSeconds = runningTask.duration - runningTask.elapsed;
@@ -471,7 +551,10 @@
     var item = results.find(function (r) { return String(r.id) === String(runningTask.id); });
     if (item) {
       item.status = 'success';
-      item.statusLabel = '提取成功';
+      item.statusLabel = getTaskStatusMeta('success').text;
+      item.taskProcessed = runningTask.processed;
+      item.taskElapsed = runningTask.elapsed;
+      item.lastModifyTime = formatDateTime(new Date());
     }
 
     renderRows();
@@ -481,9 +564,11 @@
     if (taskTimer) clearInterval(taskTimer);
     if (!runningTask) return;
 
-    runningTask.status = 'failed';
-    hideTaskPanel();
-    runningTask = null;
+    runningTask.status = 'canceled';
+    runningTask.remaining = '已停止';
+    syncRunningTaskToResult();
+    updateTaskPanelUI();
+    renderRows();
   }
 
   function showTaskPanel() {
@@ -509,14 +594,35 @@
 
   function updateTaskStatusUI() {
     if (!els.taskPanelStatus || !runningTask) return;
-    var statusTextMap = {
-      running: '执行中',
-      success: '已完成',
-      failed: '已取消'
-    };
-    els.taskPanelStatus.textContent = statusTextMap[runningTask.status] || '执行中';
-    els.taskPanelStatus.classList.toggle('is-success', runningTask.status === 'success');
-    els.taskPanelStatus.classList.toggle('is-failed', runningTask.status === 'failed');
+    var statusMeta = getTaskStatusMeta(runningTask.status);
+    els.taskPanelStatus.textContent = statusMeta.text;
+    els.taskPanelStatus.classList.toggle('is-success', statusMeta.panelClass === 'is-success');
+    els.taskPanelStatus.classList.toggle('is-failed', statusMeta.panelClass === 'is-failed');
+    if (els.taskCancelBtn) els.taskCancelBtn.disabled = !isActiveTask(runningTask);
+  }
+
+  function syncRunningTaskToResult() {
+    if (!runningTask) return;
+    var item = results.find(function (r) { return String(r.id) === String(runningTask.id); });
+    if (!item) return;
+    var statusMeta = getTaskStatusMeta(runningTask.status);
+    item.status = runningTask.status;
+    item.statusLabel = statusMeta.text;
+    item.taskTotal = runningTask.total;
+    item.taskProcessed = runningTask.processed;
+    item.taskElapsed = runningTask.elapsed;
+    item.taskDuration = runningTask.duration;
+    item.lastModifyTime = formatDateTime(new Date());
+  }
+
+  function formatDateTime(date) {
+    var pad = function (n) { return n < 10 ? '0' + n : String(n); };
+    return date.getFullYear() + '-' +
+      pad(date.getMonth() + 1) + '-' +
+      pad(date.getDate()) + ' ' +
+      pad(date.getHours()) + ':' +
+      pad(date.getMinutes()) + ':' +
+      pad(date.getSeconds());
   }
 
   function formatDuration(seconds) {
@@ -534,7 +640,11 @@
   if (els.taskPanelCloseBtn) {
     els.taskPanelCloseBtn.addEventListener('click', function () {
       requestTaskPanelClose(function () {
-        if (taskTimer) clearInterval(taskTimer);
+        if (isActiveTask(runningTask)) {
+          cancelRunningTask();
+        } else if (taskTimer) {
+          clearInterval(taskTimer);
+        }
         hideTaskPanel();
         runningTask = null;
       });
@@ -542,7 +652,7 @@
   }
 
   function requestTaskPanelClose(action) {
-    if (runningTask && runningTask.status === 'running') {
+    if (isActiveTask(runningTask)) {
       openConfirmModal({
         title: '确认取消任务',
         text: '当前任务正在进行中，确定要取消吗？',
@@ -603,14 +713,13 @@
       return;
     }
 
-    var statusMap = { success: '成功', failed: '失败', running: '运行中' };
-
     logs.forEach(function (log) {
       var tr = document.createElement('tr');
       var eventLabel = eventLabelMap[log.event] || log.event || '';
-      var showStatus = log.event === 'ai_extract_completed';
-      var statusText = showStatus ? (statusMap[log.status] || log.status || '') : '--';
-      var statusClass = log.status === 'success' ? 'green' : (log.status === 'failed' ? 'red' : 'cyan');
+      var statusMeta = getTaskStatusMeta(log.status);
+      var showStatus = !!log.status && log.event !== 'task_created';
+      var statusText = showStatus ? (statusMeta.text || log.status || '') : '--';
+      var statusClass = statusMeta.tagClass;
       tr.innerHTML =
         '<td>' + escapeHtml(log.time || '') + '</td>' +
         '<td>' + escapeHtml(log.operator || '') + '</td>' +
@@ -787,6 +896,8 @@
   }
 
   // 初始化
+  applyTaskDemoMode();
   initReportPeriodOptions();
   renderRows();
+  initExistingActiveTask();
 })();

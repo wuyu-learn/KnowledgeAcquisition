@@ -4,8 +4,8 @@ window.__EXTRACT_RESULTS__ = [
   {
     id: '1',
     reportType: '中期报告',
-    reportPeriodKey: 'semiAnnual-2025',
-    reportPeriodLabel: '25年中报',
+    reportPeriodKey: 'semiAnnual-2026',
+    reportPeriodLabel: '26年中报',
     status: 'success',
     statusLabel: '提取成功',
     knowledgeTypeKey: '1',
@@ -21,8 +21,8 @@ window.__EXTRACT_RESULTS__ = [
   {
     id: '2',
     reportType: '中期报告',
-    reportPeriodKey: 'semiAnnual-2024',
-    reportPeriodLabel: '24年中报',
+    reportPeriodKey: 'semiAnnual-2026',
+    reportPeriodLabel: '26年中报',
     status: 'success',
     statusLabel: '提取成功',
     knowledgeTypeKey: '2',
@@ -51,6 +51,44 @@ window.__EXTRACT_RESULTS__ = [
       { time: '2026-07-01 19:22', operator: '系统', event: 'task_created', status: 'success' },
       { time: '2026-07-01 19:23', operator: '系统', event: 'ai_extract_completed', status: 'failed' }
     ]
+  },
+  {
+    id: '4',
+    reportType: '中期报告',
+    reportPeriodKey: 'semiAnnual-2026',
+    reportPeriodLabel: '26年中报',
+    status: 'canceled',
+    statusLabel: '已取消',
+    knowledgeTypeKey: '7',
+    knowledgeTypeName: '管理人受调查或处罚等情况',
+    createTime: '2026-07-01 20:00:00',
+    lastModifyTime: '2026-07-01 20:02:18',
+    operator: '系统',
+    logs: [
+      { time: '2026-07-01 20:00', operator: '系统', event: 'task_created', status: 'success' },
+      { time: '2026-07-01 20:02', operator: '业务用户', event: 'task_canceled', status: 'canceled' }
+    ]
+  },
+  {
+    id: '5',
+    reportType: '中期报告',
+    reportPeriodKey: 'semiAnnual-2026',
+    reportPeriodLabel: '26年中报',
+    status: 'running',
+    statusLabel: '执行中',
+    taskTotal: 1000,
+    taskProcessed: 350,
+    taskElapsed: 42,
+    taskDuration: 120,
+    knowledgeTypeKey: '4',
+    knowledgeTypeName: '盈利投资者数量占比',
+    createTime: '2026-07-02 09:30:00',
+    lastModifyTime: '2026-07-02 09:34:12',
+    operator: '系统',
+    logs: [
+      { time: '2026-07-02 09:30', operator: '系统', event: 'task_created', status: 'success' },
+      { time: '2026-07-02 09:34', operator: '系统', event: 'ai_extract_running', status: 'running' }
+    ]
   }
 ];
 
@@ -71,6 +109,8 @@ window.__KNOWLEDGE_TYPE_MAP__ = {
 // 日志事件类型显示映射
 window.__LOG_EVENT_LABEL_MAP__ = {
   task_created: '任务创建',
+  ai_extract_running: '信息提取处理中',
+  task_canceled: '任务取消',
   ai_extract_completed: '信息提取处理结束'
 };
 
@@ -86,17 +126,17 @@ window.__SCHEDULED_TASKS__ = [
   },
   {
     id: 's2',
-    reportType: '季度报告',
-    reportPeriodLabel: '2026年三季报',
-    reportPeriodKey: 'quarterly-2026-Q3',
+    reportType: '中期报告',
+    reportPeriodLabel: '2026年中报',
+    reportPeriodKey: 'semiAnnual-2026',
     enabled: true,
     executeTime: '2026-10-01T02:00'
   },
   {
     id: 's3',
-    reportType: '季度报告',
-    reportPeriodLabel: '2026年四季报',
-    reportPeriodKey: 'quarterly-2026-Q4',
+    reportType: '中期报告',
+    reportPeriodLabel: '2026年中报',
+    reportPeriodKey: 'semiAnnual-2026',
     enabled: true,
     executeTime: '2027-01-01T02:00'
   }

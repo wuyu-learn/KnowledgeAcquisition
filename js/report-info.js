@@ -18,6 +18,7 @@
     exportListBtn: document.getElementById('reportInfoExportListBtn'),
     refreshBtn: document.getElementById('reportInfoRefreshBtn'),
     batchLogBtn: document.getElementById('reportInfoBatchLogBtn'),
+    batchDeleteBtn: document.getElementById('reportInfoBatchDeleteBtn'),
     addBtn: document.getElementById('reportInfoAddBtn'),
     selectionInfo: document.getElementById('reportInfoSelectionInfo'),
     tableHead: document.getElementById('reportInfoTableHead'),
@@ -53,10 +54,12 @@
   var isAddingRow = false;
   var editableColumns = [];
   var pendingDeleteRow = null;
+  var pendingDeleteRows = [];
   var confirmModalCallback = null;
 
   // 新增弹框中由基金代码回填的只读字段
   var AUTO_FILL_COLUMNS = ['基金简称', '基金名称', '报告名称', '管理人名称', '报告ID', '公告发布日期'];
+  var MANAGER_DIMENSION_HIDDEN_COLUMNS = ['报告名称', '基金代码', '基金简称', '基金名称', '报告ID'];
 
   function createEl(tag, className) {
     var el = document.createElement(tag);
@@ -87,7 +90,16 @@
   }
 
   function isLongTextColumn(col) {
-    return /段落内容|整改措施|处罚的依据|调查处罚情况/.test(col);
+    return /段落内容|整改措施|处罚的依据|调查处罚情况|附注情况/.test(col);
+  }
+
+  function isManagerOnlyDimension(sheet) {
+    var dimension = sheet && sheet.dimension ? String(sheet.dimension) : '';
+    return dimension.indexOf('管理人维度') !== -1 && dimension.indexOf('产品维度') === -1;
+  }
+
+  function isYesNoColumn(col) {
+    return col === '是否有内容' || String(col).indexOf('是否有附注') !== -1;
   }
 
   if (typeof window.showToast !== 'function') {
@@ -474,6 +486,11 @@
 
     var columns = Array.isArray(sheet.columns) ? sheet.columns : [];
     columns = columns.filter(function (col) { return col !== '章节'; });
+    if (isManagerOnlyDimension(sheet)) {
+      columns = columns.filter(function (col) {
+        return MANAGER_DIMENSION_HIDDEN_COLUMNS.indexOf(col) === -1;
+      });
+    }
 
     var data = getPaginationData();
     var rows = data.rows;
@@ -561,6 +578,7 @@
         '<div class="row-actions">' +
         '<button class="link-btn" type="button" data-action="view" data-row-index="' + globalIndex + '">查看</button>' +
         '<button class="link-btn" type="button" data-action="edit" data-row-index="' + globalIndex + '">编辑</button>' +
+        '<button class="link-btn" type="button" data-action="log" data-row-index="' + globalIndex + '">日志</button>' +
         '<button class="link-btn danger" type="button" data-action="delete" data-row-index="' + globalIndex + '">删除</button>' +
         '</div>';
       tr.appendChild(actionTd);
@@ -602,6 +620,7 @@
     els.selectionInfo.textContent = '已选择 ' + count + ' 条';
 
     if (els.batchLogBtn) els.batchLogBtn.disabled = count < 2;
+    if (els.batchDeleteBtn) els.batchDeleteBtn.disabled = count < 1;
   }
 
   // ===== 切换 Sheet =====
@@ -670,6 +689,10 @@
         window.showToast && window.showToast('列表已刷新');
       });
     }
+
+    if (els.batchDeleteBtn) {
+      els.batchDeleteBtn.addEventListener('click', batchDeleteRows);
+    }
   }
 
   // ===== 绑定行操作按钮事件 =====
@@ -684,10 +707,19 @@
       var rowIndex = parseInt(btn.getAttribute('data-row-index'), 10);
       if (action === 'view' || action === 'edit') {
         openRecordModal(action, rowIndex);
+      } else if (action === 'log') {
+        openRowLog(rowIndex);
       } else if (action === 'delete') {
         deleteRow(rowIndex);
       }
     });
+  }
+
+  // ===== 查看行日志 =====
+  function openRowLog(rowIndex) {
+    var row = getRowByFilteredIndex(rowIndex);
+    if (!row) return;
+    if (window.showToast) window.showToast('日志查询中...');
   }
 
   // ===== 删除行 =====
@@ -715,6 +747,37 @@
     if (window.showToast) window.showToast('删除成功');
   }
 
+  // ===== 批量删除 =====
+  function batchDeleteRows() {
+    var rows = getSelectedRows();
+    if (!rows.length) {
+      if (window.showToast) window.showToast('请先选择要删除的记录');
+      return;
+    }
+
+    pendingDeleteRows = rows;
+    openConfirmModal('确认批量删除', '确定要删除选中的 ' + rows.length + ' 条记录吗？', doBatchDeleteRows);
+  }
+
+  // ===== 执行批量删除 =====
+  function doBatchDeleteRows() {
+    if (!pendingDeleteRows.length) return;
+
+    var sheet = getCurrentSheet();
+    if (!sheet || !Array.isArray(sheet.rows)) return;
+
+    var deleteSet = new Set(pendingDeleteRows);
+    sheet.rows = sheet.rows.filter(function (row) {
+      return !deleteSet.has(row);
+    });
+
+    var count = pendingDeleteRows.length;
+    pendingDeleteRows = [];
+    currentPage = 1;
+    renderTable();
+    if (window.showToast) window.showToast('已删除 ' + count + ' 条记录');
+  }
+
   // ===== 打开确认弹框 =====
   function openConfirmModal(title, body, callback) {
     if (els.confirmModalTitle) els.confirmModalTitle.textContent = title || '确认';
@@ -728,12 +791,24 @@
     if (els.confirmModalMask) els.confirmModalMask.classList.remove('open');
     confirmModalCallback = null;
     pendingDeleteRow = null;
+    pendingDeleteRows = [];
   }
 
   function getRowByFilteredIndex(rowIndex) {
     var rows = getFilteredRows();
     if (isNaN(rowIndex) || rowIndex < 0 || rowIndex >= rows.length) return null;
     return rows[rowIndex];
+  }
+
+  function getSelectedRows() {
+    if (!els.tableBody) return [];
+    var rows = [];
+    els.tableBody.querySelectorAll('[data-check]:checked').forEach(function (box) {
+      var rowIndex = parseInt(box.getAttribute('data-check'), 10);
+      var row = getRowByFilteredIndex(rowIndex);
+      if (row) rows.push(row);
+    });
+    return rows;
   }
 
   function getEditableColumns(columns) {
@@ -994,7 +1069,7 @@
           control.setAttribute('type', 'date');
           control.value = value === '--' ? '' : formatDate(value);
           field.appendChild(control);
-        } else if (mode === 'add' && col === '是否有内容') {
+        } else if (isYesNoColumn(col)) {
           control = createEl('select', 'record-modal__control');
           control.setAttribute('data-field', col);
           ['是', '否'].forEach(function (opt) {

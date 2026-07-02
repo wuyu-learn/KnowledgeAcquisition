@@ -36,6 +36,7 @@
   // ===== 状态 =====
   var isOpen = false;
   var currentPageId = getCurrentPageId();
+  var currentTaskMode = getCurrentTaskMode();
 
   // ===== 工具函数 =====
   function createEl(tag, className) {
@@ -49,6 +50,11 @@
       if (demoPages[i].id === id) return demoPages[i];
     }
     return null;
+  }
+
+  function getCurrentTaskMode() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('taskMode') || 'running';
   }
 
   // ===== 构建 DOM =====
@@ -157,6 +163,27 @@
     btn.appendChild(btnMain);
     btn.appendChild(btnDesc);
     li.appendChild(btn);
+
+    if (page.id === 'extract') {
+      var modeGroup = createEl('div', 'demo-panel__mode-group');
+      [
+        { label: '有任务进行中', value: 'running', url: './extract-task.html?taskMode=running' },
+        { label: '无任务进行中', value: 'idle', url: './extract-task.html?taskMode=idle' }
+      ].forEach(function (mode) {
+        var modeBtn = createEl('button', 'demo-panel__mode-btn');
+        modeBtn.setAttribute('type', 'button');
+        modeBtn.setAttribute('data-task-mode', mode.value);
+        modeBtn.textContent = mode.label;
+        modeBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          window.location.href = mode.url;
+        });
+        modeBtn.classList.toggle('is-active', currentPageId === 'extract' && currentTaskMode === mode.value);
+        modeGroup.appendChild(modeBtn);
+      });
+      li.appendChild(modeGroup);
+    }
+
     navList.appendChild(li);
     navButtons.push(btn);
   });

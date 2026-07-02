@@ -341,6 +341,38 @@
   color: var(--biz-primary-hover, #c19648);
 }
 
+.demo-panel__mode-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  padding: 0 0 4px 12px;
+}
+
+.demo-panel__mode-btn {
+  min-width: 0;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--biz-soft-line, #e8edf3);
+  background: #ffffff;
+  color: var(--biz-muted, #667085);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.demo-panel__mode-btn:hover {
+  border-color: var(--biz-primary, #d4a359);
+  color: var(--biz-primary-hover, #c19648);
+}
+
+.demo-panel__mode-btn.is-active {
+  border-color: var(--biz-primary, #d4a359);
+  background: var(--biz-primary-weak, #f7eede);
+  color: var(--biz-primary-hover, #c19648);
+  font-weight: 600;
+}
+
 .demo-panel__nav-btn.is-active::before {
   content: "";
   position: absolute;
