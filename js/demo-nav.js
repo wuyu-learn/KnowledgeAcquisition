@@ -132,7 +132,6 @@
   relation.appendChild(relationTitle);
   relation.appendChild(relationGraph);
   relation.appendChild(scope);
-  panel.appendChild(relation);
 
   // 页面导航
   var nav = createEl('nav', 'demo-panel__nav');
@@ -164,7 +163,12 @@
 
   nav.appendChild(navTitle);
   nav.appendChild(navList);
-  panel.appendChild(nav);
+
+  // 面板内容区（可滚动）
+  var content = createEl('div', 'demo-panel__content');
+  content.appendChild(relation);
+  content.appendChild(nav);
+  panel.appendChild(content);
 
   root.appendChild(panel);
 

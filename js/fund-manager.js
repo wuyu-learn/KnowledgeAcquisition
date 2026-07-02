@@ -10,12 +10,18 @@
   var currentPage = 1;
   var pageSize = 10;
   var currentFilterValue = '';
+  var currentEndDate = '';
+  var currentArea = '';
+  var currentCompanyType = '';
 
   var els = {
     rows: document.getElementById('resultRows'),
     empty: document.getElementById('emptyState'),
     selectionInfo: document.getElementById('selectionInfo'),
     managerName: document.getElementById('managerName'),
+    endDateSelect: document.getElementById('endDateSelect'),
+    areaSelect: document.getElementById('areaSelect'),
+    companyTypeSelect: document.getElementById('companyTypeSelect'),
     paginationTotal: document.getElementById('paginationTotal'),
     pageSizeSelect: document.getElementById('pageSizeSelect'),
     paginationNav: document.getElementById('paginationNav'),
@@ -49,6 +55,15 @@
     return text.split('T')[0];
   }
 
+  // CSV 字段转义
+  function escapeCsvField(value) {
+    var text = String(value == null ? '' : value);
+    if (/[",\n\r]/.test(text)) {
+      return '"' + text.replace(/"/g, '""') + '"';
+    }
+    return text;
+  }
+
   // ===== Toast 轻提示 =====
   if (typeof window.showToast !== 'function') {
     window.showToast = function (message) {
@@ -65,16 +80,67 @@
   // ===== 筛选数据 =====
   function getFilteredData() {
     var keyword = currentFilterValue.trim();
+    var endDate = currentEndDate;
+    var area = currentArea;
+    var companyType = currentCompanyType;
     var result = data;
+
     if (keyword) {
-      result = data.filter(function (item) {
+      result = result.filter(function (item) {
         var name = String(item.INVESTADVISORNAME || '').toLowerCase();
         return name.indexOf(keyword.toLowerCase()) !== -1;
       });
     }
+
+    if (endDate) {
+      result = result.filter(function (item) {
+        return formatDate(item.ENDDATE) === endDate;
+      });
+    }
+
+    if (area) {
+      result = result.filter(function (item) {
+        return formatValue(item.AREACHINAME) === area;
+      });
+    }
+
+    if (companyType) {
+      result = result.filter(function (item) {
+        return formatValue(item.COMPANYCVAL) === companyType;
+      });
+    }
+
     return result.slice().sort(function (a, b) {
       return (b.UNMSBFNV || 0) - (a.UNMSBFNV || 0);
     });
+  }
+
+  // 从下拉框字段中提取唯一值
+  function extractUniqueValues(fieldName) {
+    return data.reduce(function (acc, item) {
+      var value = formatValue(item[fieldName]);
+      if (value && value !== '--' && acc.indexOf(value) === -1) {
+        acc.push(value);
+      }
+      return acc;
+    }, []).sort();
+  }
+
+  // 渲染下拉框选项
+  function renderSelectOptions(selectEl, values) {
+    if (!selectEl) return;
+    var html = '<option value="">全部</option>';
+    values.forEach(function (value) {
+      html += '<option value="' + escapeHtml(value) + '">' + escapeHtml(value) + '</option>';
+    });
+    selectEl.innerHTML = html;
+  }
+
+  // ===== 初始化筛选下拉框 =====
+  function initFilterOptions() {
+    renderSelectOptions(els.endDateSelect, extractUniqueValues('ENDDATE').map(formatDate));
+    renderSelectOptions(els.areaSelect, extractUniqueValues('AREACHINAME'));
+    renderSelectOptions(els.companyTypeSelect, extractUniqueValues('COMPANYCVAL'));
   }
 
   // ===== 分页数据 =====
@@ -174,32 +240,17 @@
         '<td class="col-index">' + (globalIndex + 1) + '</td>' +
         '<td class="knowledge-col" title="' + escapeHtml(formatValue(item.INVESTADVISORNAME)) + '">' +
         escapeHtml(formatValue(item.INVESTADVISORNAME)) + '</td>' +
+        '<td class="col-abbr" title="' + escapeHtml(formatValue(item.ABBRINVESTADVISORNAME)) + '">' +
+        escapeHtml(formatValue(item.ABBRINVESTADVISORNAME)) + '</td>' +
+        '<td class="col-area">' + escapeHtml(formatValue(item.AREACHINAME)) + '</td>' +
+        '<td class="col-type">' + escapeHtml(formatValue(item.COMPANYCVAL)) + '</td>' +
         '<td class="col-amount">' + escapeHtml(formatNumber(item.UNMSBFNV)) + '</td>' +
         '<td class="col-rank">' + escapeHtml(formatValue(item.UNMSBFNVRANK)) + '</td>' +
-        '<td class="col-rank">' + escapeHtml(formatValue(item.FUNDNRANK)) + '</td>' +
-        '<td class="col-count">' + escapeHtml(formatValue(item.TOTALFUNDN)) + '</td>' +
-        '<td class="time-col">' + escapeHtml(formatDate(item.ENDDATE)) + '</td>' +
-        '<td class="sticky-right">' +
-          '<div class="row-actions">' +
-            '<button class="link-btn" data-action="view" data-index="' + globalIndex + '">查看</button>' +
-          '</div>' +
-        '</td>';
+        '<td class="time-col">' + escapeHtml(formatDate(item.ENDDATE)) + '</td>';
       els.rows.appendChild(tr);
     });
 
-    bindRowActions();
     renderPagination();
-  }
-
-  // ===== 行内按钮事件绑定 =====
-  function bindRowActions() {
-    if (!els.rows) return;
-    els.rows.querySelectorAll('[data-action="view"]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        // 查看交互待后续确定
-        if (window.showToast) window.showToast('查看功能开发中');
-      });
-    });
   }
 
   // ===== 全选/取消全选 =====
@@ -227,15 +278,61 @@
     els.selectionInfo.textContent = '已选择 ' + count + ' 条';
   }
 
+  // ===== 导出列表 =====
+  function exportList() {
+    var rows = getFilteredData();
+    if (!rows.length) {
+      if (window.showToast) window.showToast('当前没有可导出的数据');
+      return;
+    }
+
+    var headers = ['序号', '管理人名称', '管理人简称', '地区', '公司类型', '非货规模(亿)', '非货规模排名', '截止日期'];
+    var lines = [headers.map(escapeCsvField).join(',')];
+
+    rows.forEach(function (item, index) {
+      var line = [
+        index + 1,
+        formatValue(item.INVESTADVISORNAME),
+        formatValue(item.ABBRINVESTADVISORNAME),
+        formatValue(item.AREACHINAME),
+        formatValue(item.COMPANYCVAL),
+        formatNumber(item.UNMSBFNV),
+        formatValue(item.UNMSBFNVRANK),
+        formatDate(item.ENDDATE)
+      ].map(escapeCsvField).join(',');
+      lines.push(line);
+    });
+
+    var bom = '﻿';
+    var csvContent = bom + lines.join('\r\n');
+    var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    var timestamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+
+    link.href = url;
+    link.download = '基金管理人列表_' + timestamp + '.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    if (window.showToast) window.showToast('列表导出成功');
+  }
+
   // ===== 绑定筛选/分页事件 =====
   function bindEvents() {
     var searchBtn = document.getElementById('searchBtn');
     var resetBtn = document.getElementById('resetBtn');
     var refreshBtn = document.getElementById('refreshBtn');
+    var exportBtn = document.getElementById('exportBtn');
 
     if (searchBtn) {
       searchBtn.addEventListener('click', function () {
         currentFilterValue = els.managerName ? els.managerName.value : '';
+        currentEndDate = els.endDateSelect ? els.endDateSelect.value : '';
+        currentArea = els.areaSelect ? els.areaSelect.value : '';
+        currentCompanyType = els.companyTypeSelect ? els.companyTypeSelect.value : '';
         currentPage = 1;
         renderRows();
         if (window.showToast) window.showToast('查询条件已提交');
@@ -245,7 +342,13 @@
     if (resetBtn) {
       resetBtn.addEventListener('click', function () {
         if (els.managerName) els.managerName.value = '';
+        if (els.endDateSelect) els.endDateSelect.value = '';
+        if (els.areaSelect) els.areaSelect.value = '';
+        if (els.companyTypeSelect) els.companyTypeSelect.value = '';
         currentFilterValue = '';
+        currentEndDate = '';
+        currentArea = '';
+        currentCompanyType = '';
         currentPage = 1;
         renderRows();
         if (window.showToast) window.showToast('筛选条件已重置');
@@ -256,6 +359,36 @@
       refreshBtn.addEventListener('click', function () {
         renderRows();
         if (window.showToast) window.showToast('列表已刷新');
+      });
+    }
+
+    if (exportBtn) {
+      exportBtn.addEventListener('click', function () {
+        exportList();
+      });
+    }
+
+    if (els.endDateSelect) {
+      els.endDateSelect.addEventListener('change', function () {
+        currentEndDate = els.endDateSelect.value;
+        currentPage = 1;
+        renderRows();
+      });
+    }
+
+    if (els.areaSelect) {
+      els.areaSelect.addEventListener('change', function () {
+        currentArea = els.areaSelect.value;
+        currentPage = 1;
+        renderRows();
+      });
+    }
+
+    if (els.companyTypeSelect) {
+      els.companyTypeSelect.addEventListener('change', function () {
+        currentCompanyType = els.companyTypeSelect.value;
+        currentPage = 1;
+        renderRows();
       });
     }
 
@@ -301,6 +434,7 @@
   }
 
   // ===== 初始化 =====
+  initFilterOptions();
   bindCheckAll();
   bindEvents();
   renderRows();

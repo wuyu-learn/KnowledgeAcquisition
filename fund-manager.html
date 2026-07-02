@@ -22,10 +22,17 @@
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
-    .fund-manager-table .col-count {
+    .fund-manager-table .col-abbr {
+      min-width: 110px;
+      white-space: nowrap;
+    }
+    .fund-manager-table .col-area {
       min-width: 90px;
       text-align: center;
-      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .fund-manager-table .col-type {
+      min-width: 130px;
       white-space: nowrap;
     }
 
@@ -122,9 +129,28 @@
             <label for="managerName">基金管理人名称</label>
             <input type="text" id="managerName" class="control filter-input" placeholder="请输入基金管理人名称">
           </div>
+          <div class="field">
+            <label for="endDateSelect">截止日期</label>
+            <select id="endDateSelect" class="control filter-input">
+              <option value="">全部</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="areaSelect">地区</label>
+            <select id="areaSelect" class="control filter-input">
+              <option value="">全部</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="companyTypeSelect">公司类型</label>
+            <select id="companyTypeSelect" class="control filter-input">
+              <option value="">全部</option>
+            </select>
+          </div>
           <div class="btn-row">
             <button class="btn primary" id="searchBtn">查询</button>
             <button class="btn" id="resetBtn">重置</button>
+            <button class="btn" id="exportBtn">导出列表</button>
           </div>
         </div>
       </section>
@@ -146,12 +172,12 @@
               <th class="check-col"><input id="checkAll" aria-label="全选" type="checkbox"></th>
               <th class="col-index">序号</th>
               <th class="knowledge-col">管理人名称</th>
+              <th class="col-abbr">管理人简称</th>
+              <th class="col-area">地区</th>
+              <th class="col-type">公司类型</th>
               <th class="col-amount">非货规模(亿)</th>
               <th class="col-rank">非货规模排名</th>
-              <th class="col-rank">基金数量排名</th>
-              <th class="col-count">基金数量</th>
               <th class="time-col">截止日期</th>
-              <th class="sticky-right">操作</th>
             </tr>
           </thead>
           <tbody id="resultRows">

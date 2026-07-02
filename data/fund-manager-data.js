@@ -2,6 +2,9 @@
 // 基金管理人数据（来源：fundmannager.txt）
 window.__FUND_MANAGER_DATA__ = [
   {
+    "ABBRINVESTADVISORNAME": "易方达基金",
+    "AREACHINAME": "珠海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 2,
     "FUNDNVRANK": 1,
@@ -14,6 +17,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 1
   },
   {
+    "ABBRINVESTADVISORNAME": "华夏基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 1,
     "FUNDNVRANK": 2,
@@ -26,6 +32,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 2
   },
   {
+    "ABBRINVESTADVISORNAME": "广发基金",
+    "AREACHINAME": "珠海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 3,
     "FUNDNVRANK": 3,
@@ -38,6 +47,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 3
   },
   {
+    "ABBRINVESTADVISORNAME": "富国基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 4,
     "FUNDNVRANK": 5,
@@ -50,6 +62,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 4
   },
   {
+    "ABBRINVESTADVISORNAME": "南方基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 5,
     "FUNDNVRANK": 4,
@@ -62,6 +77,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 5
   },
   {
+    "ABBRINVESTADVISORNAME": "嘉实基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 9,
     "FUNDNVRANK": 10,
@@ -74,6 +92,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 6
   },
   {
+    "ABBRINVESTADVISORNAME": "汇添富基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 6,
     "FUNDNVRANK": 7,
@@ -86,6 +107,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 7
   },
   {
+    "ABBRINVESTADVISORNAME": "景顺长城基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 18,
     "FUNDNVRANK": 15,
@@ -98,6 +122,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 8
   },
   {
+    "ABBRINVESTADVISORNAME": "招商基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 10,
     "FUNDNVRANK": 12,
@@ -110,6 +137,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 9
   },
   {
+    "ABBRINVESTADVISORNAME": "鹏华基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 8,
     "FUNDNVRANK": 9,
@@ -122,6 +152,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 10
   },
   {
+    "ABBRINVESTADVISORNAME": "博时基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 7,
     "FUNDNVRANK": 8,
@@ -134,6 +167,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 11
   },
   {
+    "ABBRINVESTADVISORNAME": "华泰柏瑞基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 22,
     "FUNDNVRANK": 23,
@@ -146,6 +182,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 12
   },
   {
+    "ABBRINVESTADVISORNAME": "国泰基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 11,
     "FUNDNVRANK": 14,
@@ -158,6 +197,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 13
   },
   {
+    "ABBRINVESTADVISORNAME": "天弘基金",
+    "AREACHINAME": "天津市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 15,
     "FUNDNVRANK": 6,
@@ -170,6 +212,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 14
   },
   {
+    "ABBRINVESTADVISORNAME": "永赢基金",
+    "AREACHINAME": "宁波市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 21,
     "FUNDNVRANK": 21,
@@ -182,6 +227,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 15
   },
   {
+    "ABBRINVESTADVISORNAME": "工银瑞信基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 13,
     "FUNDNVRANK": 13,
@@ -194,6 +242,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 16
   },
   {
+    "ABBRINVESTADVISORNAME": "中欧基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 17,
     "FUNDNVRANK": 20,
@@ -206,6 +257,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 17
   },
   {
+    "ABBRINVESTADVISORNAME": "华安基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 12,
     "FUNDNVRANK": 16,
@@ -218,6 +272,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 18
   },
   {
+    "ABBRINVESTADVISORNAME": "中银基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 24,
     "FUNDNVRANK": 17,
@@ -230,6 +287,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 19
   },
   {
+    "ABBRINVESTADVISORNAME": "兴证全球基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 52,
     "FUNDNVRANK": 18,
@@ -242,6 +302,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 20
   },
   {
+    "ABBRINVESTADVISORNAME": "银华基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 15,
     "FUNDNVRANK": 22,
@@ -254,6 +317,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 21
   },
   {
+    "ABBRINVESTADVISORNAME": "大成基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 19,
     "FUNDNVRANK": 27,
@@ -266,6 +332,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 22
   },
   {
+    "ABBRINVESTADVISORNAME": "兴业基金",
+    "AREACHINAME": "福州市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 29,
     "FUNDNVRANK": 26,
@@ -278,6 +347,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 23
   },
   {
+    "ABBRINVESTADVISORNAME": "平安基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 14,
     "FUNDNVRANK": 19,
@@ -290,6 +362,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 24
   },
   {
+    "ABBRINVESTADVISORNAME": "华宝基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 25,
     "FUNDNVRANK": 28,
@@ -302,6 +377,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 25
   },
   {
+    "ABBRINVESTADVISORNAME": "海富通基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 41,
     "FUNDNVRANK": 32,
@@ -314,6 +392,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 26
   },
   {
+    "ABBRINVESTADVISORNAME": "交银施罗德基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 26,
     "FUNDNVRANK": 25,
@@ -326,6 +407,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 27
   },
   {
+    "ABBRINVESTADVISORNAME": "建信基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 23,
     "FUNDNVRANK": 11,
@@ -338,6 +422,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 28
   },
   {
+    "ABBRINVESTADVISORNAME": "华商基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 37,
     "FUNDNVRANK": 40,
@@ -350,6 +437,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 29
   },
   {
+    "ABBRINVESTADVISORNAME": "国寿安保基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 35,
     "FUNDNVRANK": 31,
@@ -362,6 +452,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 30
   },
   {
+    "ABBRINVESTADVISORNAME": "东方证券资管",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 27,
     "FUNDNVRANK": 39,
@@ -374,6 +467,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 31
   },
   {
+    "ABBRINVESTADVISORNAME": "上银基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 64,
     "FUNDNVRANK": 34,
@@ -386,6 +482,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 32
   },
   {
+    "ABBRINVESTADVISORNAME": "万家基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 20,
     "FUNDNVRANK": 24,
@@ -398,6 +497,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 33
   },
   {
+    "ABBRINVESTADVISORNAME": "长城基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 28,
     "FUNDNVRANK": 29,
@@ -410,6 +512,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 34
   },
   {
+    "ABBRINVESTADVISORNAME": "农银汇理基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 44,
     "FUNDNVRANK": 36,
@@ -422,6 +527,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 35
   },
   {
+    "ABBRINVESTADVISORNAME": "中加基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 56,
     "FUNDNVRANK": 46,
@@ -434,6 +542,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 36
   },
   {
+    "ABBRINVESTADVISORNAME": "摩根基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "外资独资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 30,
     "FUNDNVRANK": 37,
@@ -446,6 +557,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 37
   },
   {
+    "ABBRINVESTADVISORNAME": "浦银安盛基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 30,
     "FUNDNVRANK": 30,
@@ -458,6 +572,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 38
   },
   {
+    "ABBRINVESTADVISORNAME": "鑫元基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 38,
     "FUNDNVRANK": 35,
@@ -470,6 +587,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 39
   },
   {
+    "ABBRINVESTADVISORNAME": "国投瑞银基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 32,
     "FUNDNVRANK": 38,
@@ -482,6 +602,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 40
   },
   {
+    "ABBRINVESTADVISORNAME": "国联基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 47,
     "FUNDNVRANK": 48,
@@ -494,6 +617,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 41
   },
   {
+    "ABBRINVESTADVISORNAME": "鹏扬基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 43,
     "FUNDNVRANK": 51,
@@ -506,6 +632,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 42
   },
   {
+    "ABBRINVESTADVISORNAME": "创金合信基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 38,
     "FUNDNVRANK": 44,
@@ -518,6 +647,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 43
   },
   {
+    "ABBRINVESTADVISORNAME": "民生加银基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 36,
     "FUNDNVRANK": 49,
@@ -530,6 +662,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 44
   },
   {
+    "ABBRINVESTADVISORNAME": "中银证券",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 77,
     "FUNDNVRANK": 57,
@@ -542,6 +677,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 45
   },
   {
+    "ABBRINVESTADVISORNAME": "东方基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 67,
     "FUNDNVRANK": 60,
@@ -554,6 +692,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 46
   },
   {
+    "ABBRINVESTADVISORNAME": "安信基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 34,
     "FUNDNVRANK": 56,
@@ -566,6 +707,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 47
   },
   {
+    "ABBRINVESTADVISORNAME": "西部利得基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 55,
     "FUNDNVRANK": 54,
@@ -578,6 +722,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 48
   },
   {
+    "ABBRINVESTADVISORNAME": "泰康基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 46,
     "FUNDNVRANK": 47,
@@ -590,6 +737,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 49
   },
   {
+    "ABBRINVESTADVISORNAME": "国联安基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 50,
     "FUNDNVRANK": 55,
@@ -602,6 +752,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 50
   },
   {
+    "ABBRINVESTADVISORNAME": "财通资管",
+    "AREACHINAME": "杭州市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 60,
     "FUNDNVRANK": 65,
@@ -614,6 +767,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 51
   },
   {
+    "ABBRINVESTADVISORNAME": "中邮基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 72,
     "FUNDNVRANK": 72,
@@ -626,6 +782,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 52
   },
   {
+    "ABBRINVESTADVISORNAME": "长信基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 47,
     "FUNDNVRANK": 42,
@@ -638,6 +797,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 53
   },
   {
+    "ABBRINVESTADVISORNAME": "中信保诚基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 44,
     "FUNDNVRANK": 45,
@@ -650,6 +812,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 54
   },
   {
+    "ABBRINVESTADVISORNAME": "华富基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 49,
     "FUNDNVRANK": 53,
@@ -662,6 +827,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 55
   },
   {
+    "ABBRINVESTADVISORNAME": "兴银基金",
+    "AREACHINAME": "福州市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 65,
     "FUNDNVRANK": 52,
@@ -674,6 +842,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 56
   },
   {
+    "ABBRINVESTADVISORNAME": "财通基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 67,
     "FUNDNVRANK": 71,
@@ -686,6 +857,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 57
   },
   {
+    "ABBRINVESTADVISORNAME": "前海开源基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 33,
     "FUNDNVRANK": 67,
@@ -698,6 +872,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 58
   },
   {
+    "ABBRINVESTADVISORNAME": "诺安基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 70,
     "FUNDNVRANK": 43,
@@ -710,6 +887,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 59
   },
   {
+    "ABBRINVESTADVISORNAME": "申万菱信基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 54,
     "FUNDNVRANK": 59,
@@ -722,6 +902,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 60
   },
   {
+    "ABBRINVESTADVISORNAME": "融通基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 38,
     "FUNDNVRANK": 50,
@@ -734,6 +917,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 61
   },
   {
+    "ABBRINVESTADVISORNAME": "长盛基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 56,
     "FUNDNVRANK": 66,
@@ -746,6 +932,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 62
   },
   {
+    "ABBRINVESTADVISORNAME": "中金基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 62,
     "FUNDNVRANK": 33,
@@ -758,6 +947,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 63
   },
   {
+    "ABBRINVESTADVISORNAME": "华泰保兴基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 91,
     "FUNDNVRANK": 77,
@@ -770,6 +962,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 64
   },
   {
+    "ABBRINVESTADVISORNAME": "宏利基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "外资独资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 56,
     "FUNDNVRANK": 62,
@@ -782,6 +977,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 65
   },
   {
+    "ABBRINVESTADVISORNAME": "光大保德信基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 51,
     "FUNDNVRANK": 64,
@@ -794,6 +992,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 66
   },
   {
+    "ABBRINVESTADVISORNAME": "银河基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 53,
     "FUNDNVRANK": 58,
@@ -806,6 +1007,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 67
   },
   {
+    "ABBRINVESTADVISORNAME": "国泰海通资管",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 59,
     "FUNDNVRANK": 63,
@@ -818,6 +1022,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 68
   },
   {
+    "ABBRINVESTADVISORNAME": "信达澳亚基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 42,
     "FUNDNVRANK": 61,
@@ -830,6 +1037,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 69
   },
   {
+    "ABBRINVESTADVISORNAME": "睿远基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 149,
     "FUNDNVRANK": 83,
@@ -842,6 +1052,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 70
   },
   {
+    "ABBRINVESTADVISORNAME": "国金基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 95,
     "FUNDNVRANK": 70,
@@ -854,6 +1067,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 71
   },
   {
+    "ABBRINVESTADVISORNAME": "德邦基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 94,
     "FUNDNVRANK": 76,
@@ -866,6 +1082,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 72
   },
   {
+    "ABBRINVESTADVISORNAME": "东财基金",
+    "AREACHINAME": "拉萨市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 71,
     "FUNDNVRANK": 84,
@@ -878,6 +1097,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 73
   },
   {
+    "ABBRINVESTADVISORNAME": "金鹰基金",
+    "AREACHINAME": "广州市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 61,
     "FUNDNVRANK": 73,
@@ -890,6 +1112,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 74
   },
   {
+    "ABBRINVESTADVISORNAME": "太平基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 77,
     "FUNDNVRANK": 81,
@@ -902,6 +1127,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 75
   },
   {
+    "ABBRINVESTADVISORNAME": "国海富兰克林基金",
+    "AREACHINAME": "南宁市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 75,
     "FUNDNVRANK": 74,
@@ -914,6 +1142,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 76
   },
   {
+    "ABBRINVESTADVISORNAME": "惠升基金",
+    "AREACHINAME": "拉萨市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 102,
     "FUNDNVRANK": 86,
@@ -926,6 +1157,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 77
   },
   {
+    "ABBRINVESTADVISORNAME": "英大基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 99,
     "FUNDNVRANK": 80,
@@ -938,6 +1172,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 78
   },
   {
+    "ABBRINVESTADVISORNAME": "博道基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 82,
     "FUNDNVRANK": 87,
@@ -950,6 +1187,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 79
   },
   {
+    "ABBRINVESTADVISORNAME": "中航基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 91,
     "FUNDNVRANK": 82,
@@ -962,6 +1202,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 80
   },
   {
+    "ABBRINVESTADVISORNAME": "宝盈基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 69,
     "FUNDNVRANK": 78,
@@ -974,6 +1217,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 81
   },
   {
+    "ABBRINVESTADVISORNAME": "汇安基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 63,
     "FUNDNVRANK": 90,
@@ -986,6 +1232,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 82
   },
   {
+    "ABBRINVESTADVISORNAME": "方正富邦基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 73,
     "FUNDNVRANK": 69,
@@ -998,6 +1247,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 83
   },
   {
+    "ABBRINVESTADVISORNAME": "汇丰晋信基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 81,
     "FUNDNVRANK": 75,
@@ -1010,6 +1262,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 84
   },
   {
+    "ABBRINVESTADVISORNAME": "泓德基金",
+    "AREACHINAME": "拉萨市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 75,
     "FUNDNVRANK": 92,
@@ -1022,6 +1277,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 85
   },
   {
+    "ABBRINVESTADVISORNAME": "中信建投基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 65,
     "FUNDNVRANK": 68,
@@ -1034,6 +1292,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 86
   },
   {
+    "ABBRINVESTADVISORNAME": "蜂巢基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 100,
     "FUNDNVRANK": 98,
@@ -1046,6 +1307,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 87
   },
   {
+    "ABBRINVESTADVISORNAME": "格林基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 91,
     "FUNDNVRANK": 100,
@@ -1058,6 +1322,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 88
   },
   {
+    "ABBRINVESTADVISORNAME": "新华基金",
+    "AREACHINAME": "重庆市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 74,
     "FUNDNVRANK": 85,
@@ -1070,6 +1337,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 89
   },
   {
+    "ABBRINVESTADVISORNAME": "中泰证券资管",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 96,
     "FUNDNVRANK": 91,
@@ -1082,6 +1352,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 90
   },
   {
+    "ABBRINVESTADVISORNAME": "摩根士丹利基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "外资独资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 82,
     "FUNDNVRANK": 101,
@@ -1094,6 +1367,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 91
   },
   {
+    "ABBRINVESTADVISORNAME": "嘉合基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 106,
     "FUNDNVRANK": 94,
@@ -1106,6 +1382,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 92
   },
   {
+    "ABBRINVESTADVISORNAME": "山证资管",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 111,
     "FUNDNVRANK": 93,
@@ -1118,6 +1397,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 93
   },
   {
+    "ABBRINVESTADVISORNAME": "诺德基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 79,
     "FUNDNVRANK": 95,
@@ -1130,6 +1412,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 94
   },
   {
+    "ABBRINVESTADVISORNAME": "华银基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 125,
     "FUNDNVRANK": 105,
@@ -1142,6 +1427,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 95
   },
   {
+    "ABBRINVESTADVISORNAME": "东吴基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 85,
     "FUNDNVRANK": 88,
@@ -1154,6 +1442,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 96
   },
   {
+    "ABBRINVESTADVISORNAME": "浙商资管",
+    "AREACHINAME": "杭州市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 88,
     "FUNDNVRANK": 104,
@@ -1166,6 +1457,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 97
   },
   {
+    "ABBRINVESTADVISORNAME": "恒生前海基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中外合资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 98,
     "FUNDNVRANK": 108,
@@ -1178,6 +1472,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 98
   },
   {
+    "ABBRINVESTADVISORNAME": "圆信永丰基金",
+    "AREACHINAME": "厦门市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 88,
     "FUNDNVRANK": 97,
@@ -1190,6 +1487,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 99
   },
   {
+    "ABBRINVESTADVISORNAME": "东海基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 102,
     "FUNDNVRANK": 110,
@@ -1202,6 +1502,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 100
   },
   {
+    "ABBRINVESTADVISORNAME": "长江资管",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 85,
     "FUNDNVRANK": 96,
@@ -1214,6 +1517,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 101
   },
   {
+    "ABBRINVESTADVISORNAME": "浙商基金",
+    "AREACHINAME": "杭州市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 85,
     "FUNDNVRANK": 102,
@@ -1226,6 +1532,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 102
   },
   {
+    "ABBRINVESTADVISORNAME": "华泰证券资管",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 79,
     "FUNDNVRANK": 41,
@@ -1238,6 +1547,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 103
   },
   {
+    "ABBRINVESTADVISORNAME": "金元顺安基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 106,
     "FUNDNVRANK": 103,
@@ -1250,6 +1562,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 104
   },
   {
+    "ABBRINVESTADVISORNAME": "淳厚基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 116,
     "FUNDNVRANK": 112,
@@ -1262,6 +1577,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 105
   },
   {
+    "ABBRINVESTADVISORNAME": "南华基金",
+    "AREACHINAME": "金华市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 114,
     "FUNDNVRANK": 114,
@@ -1274,6 +1592,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 106
   },
   {
+    "ABBRINVESTADVISORNAME": "渤海汇金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 118,
     "FUNDNVRANK": 107,
@@ -1286,6 +1607,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 107
   },
   {
+    "ABBRINVESTADVISORNAME": "金信基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 111,
     "FUNDNVRANK": 111,
@@ -1298,6 +1622,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 108
   },
   {
+    "ABBRINVESTADVISORNAME": "苏新基金",
+    "AREACHINAME": "苏州市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 140,
     "FUNDNVRANK": 117,
@@ -1310,6 +1637,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 109
   },
   {
+    "ABBRINVESTADVISORNAME": "东兴基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 100,
     "FUNDNVRANK": 99,
@@ -1322,6 +1652,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 110
   },
   {
+    "ABBRINVESTADVISORNAME": "前海联合基金",
+    "AREACHINAME": "乌鲁木齐市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 102,
     "FUNDNVRANK": 116,
@@ -1334,6 +1667,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 111
   },
   {
+    "ABBRINVESTADVISORNAME": "人保资产",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 96,
     "FUNDNVRANK": 106,
@@ -1346,6 +1682,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 112
   },
   {
+    "ABBRINVESTADVISORNAME": "国新国证基金",
+    "AREACHINAME": "保定市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 134,
     "FUNDNVRANK": 113,
@@ -1358,6 +1697,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 113
   },
   {
+    "ABBRINVESTADVISORNAME": "路博迈基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "外资独资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 118,
     "FUNDNVRANK": 120,
@@ -1370,6 +1712,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 114
   },
   {
+    "ABBRINVESTADVISORNAME": "华润元大基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 122,
     "FUNDNVRANK": 118,
@@ -1382,6 +1727,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 115
   },
   {
+    "ABBRINVESTADVISORNAME": "泰信基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 84,
     "FUNDNVRANK": 89,
@@ -1394,6 +1742,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 116
   },
   {
+    "ABBRINVESTADVISORNAME": "京管泰富基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 145,
     "FUNDNVRANK": 121,
@@ -1406,6 +1757,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 117
   },
   {
+    "ABBRINVESTADVISORNAME": "泉果基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 145,
     "FUNDNVRANK": 122,
@@ -1418,6 +1772,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 118
   },
   {
+    "ABBRINVESTADVISORNAME": "新沃基金",
+    "AREACHINAME": "青岛市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 145,
     "FUNDNVRANK": 123,
@@ -1430,6 +1787,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 119
   },
   {
+    "ABBRINVESTADVISORNAME": "富荣基金",
+    "AREACHINAME": "广州市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 122,
     "FUNDNVRANK": 115,
@@ -1442,6 +1802,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 120
   },
   {
+    "ABBRINVESTADVISORNAME": "贝莱德基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "外资独资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 117,
     "FUNDNVRANK": 124,
@@ -1454,6 +1817,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 121
   },
   {
+    "ABBRINVESTADVISORNAME": "中庚基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 149,
     "FUNDNVRANK": 125,
@@ -1466,6 +1832,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 122
   },
   {
+    "ABBRINVESTADVISORNAME": "富安达基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 102,
     "FUNDNVRANK": 119,
@@ -1478,6 +1847,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 123
   },
   {
+    "ABBRINVESTADVISORNAME": "红塔红土基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 118,
     "FUNDNVRANK": 126,
@@ -1490,6 +1862,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 124
   },
   {
+    "ABBRINVESTADVISORNAME": "天治基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 122,
     "FUNDNVRANK": 128,
@@ -1502,6 +1877,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 125
   },
   {
+    "ABBRINVESTADVISORNAME": "长安基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 106,
     "FUNDNVRANK": 127,
@@ -1514,6 +1892,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 126
   },
   {
+    "ABBRINVESTADVISORNAME": "朱雀基金",
+    "AREACHINAME": "西安市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 136,
     "FUNDNVRANK": 130,
@@ -1526,6 +1907,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 127
   },
   {
+    "ABBRINVESTADVISORNAME": "东方阿尔法基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 130,
     "FUNDNVRANK": 133,
@@ -1538,6 +1922,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 128
   },
   {
+    "ABBRINVESTADVISORNAME": "中海基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 88,
     "FUNDNVRANK": 129,
@@ -1550,6 +1937,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 129
   },
   {
+    "ABBRINVESTADVISORNAME": "兴华基金",
+    "AREACHINAME": "青岛市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 125,
     "FUNDNVRANK": 135,
@@ -1562,6 +1952,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 130
   },
   {
+    "ABBRINVESTADVISORNAME": "红土创新基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 106,
     "FUNDNVRANK": 109,
@@ -1574,6 +1967,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 131
   },
   {
+    "ABBRINVESTADVISORNAME": "鹏安基金管理",
+    "AREACHINAME": "海口市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 158,
     "FUNDNVRANK": 136,
@@ -1586,6 +1982,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 132
   },
   {
+    "ABBRINVESTADVISORNAME": "博远基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 140,
     "FUNDNVRANK": 137,
@@ -1598,6 +1997,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 133
   },
   {
+    "ABBRINVESTADVISORNAME": "恒越基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 125,
     "FUNDNVRANK": 138,
@@ -1610,6 +2012,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 134
   },
   {
+    "ABBRINVESTADVISORNAME": "富达基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "外资独资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 132,
     "FUNDNVRANK": 139,
@@ -1622,6 +2027,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 135
   },
   {
+    "ABBRINVESTADVISORNAME": "同泰基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 111,
     "FUNDNVRANK": 140,
@@ -1634,6 +2042,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 136
   },
   {
+    "ABBRINVESTADVISORNAME": "尚正基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 130,
     "FUNDNVRANK": 141,
@@ -1646,6 +2057,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 137
   },
   {
+    "ABBRINVESTADVISORNAME": "湘财基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 114,
     "FUNDNVRANK": 134,
@@ -1658,6 +2072,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 138
   },
   {
+    "ABBRINVESTADVISORNAME": "百嘉基金",
+    "AREACHINAME": "广州市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 125,
     "FUNDNVRANK": 143,
@@ -1670,6 +2087,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 139
   },
   {
+    "ABBRINVESTADVISORNAME": "先锋基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 136,
     "FUNDNVRANK": 142,
@@ -1682,6 +2102,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 140
   },
   {
+    "ABBRINVESTADVISORNAME": "华西基金",
+    "AREACHINAME": "成都市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 154,
     "FUNDNVRANK": 144,
@@ -1694,6 +2117,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 141
   },
   {
+    "ABBRINVESTADVISORNAME": "汇泉基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 129,
     "FUNDNVRANK": 145,
@@ -1706,6 +2132,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 142
   },
   {
+    "ABBRINVESTADVISORNAME": "施罗德基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "外资独资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 155,
     "FUNDNVRANK": 146,
@@ -1718,6 +2147,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 143
   },
   {
+    "ABBRINVESTADVISORNAME": "招商资管",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "中央国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 121,
     "FUNDNVRANK": 79,
@@ -1730,6 +2162,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 144
   },
   {
+    "ABBRINVESTADVISORNAME": "安联基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "外资独资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 158,
     "FUNDNVRANK": 147,
@@ -1742,6 +2177,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 145
   },
   {
+    "ABBRINVESTADVISORNAME": "国融基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 135,
     "FUNDNVRANK": 148,
@@ -1754,6 +2192,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 146
   },
   {
+    "ABBRINVESTADVISORNAME": "易米基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 140,
     "FUNDNVRANK": 151,
@@ -1766,6 +2207,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 147
   },
   {
+    "ABBRINVESTADVISORNAME": "兴证资管",
+    "AREACHINAME": "福州市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 132,
     "FUNDNVRANK": 131,
@@ -1778,6 +2222,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 148
   },
   {
+    "ABBRINVESTADVISORNAME": "明亚基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 145,
     "FUNDNVRANK": 149,
@@ -1790,6 +2237,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 149
   },
   {
+    "ABBRINVESTADVISORNAME": "达诚基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 136,
     "FUNDNVRANK": 152,
@@ -1802,6 +2252,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 150
   },
   {
+    "ABBRINVESTADVISORNAME": "益民基金",
+    "AREACHINAME": "重庆市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 149,
     "FUNDNVRANK": 153,
@@ -1814,6 +2267,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 151
   },
   {
+    "ABBRINVESTADVISORNAME": "弘毅远方基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 140,
     "FUNDNVRANK": 154,
@@ -1826,6 +2282,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 152
   },
   {
+    "ABBRINVESTADVISORNAME": "九泰基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 110,
     "FUNDNVRANK": 150,
@@ -1838,6 +2297,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 153
   },
   {
+    "ABBRINVESTADVISORNAME": "兴合基金",
+    "AREACHINAME": "芜湖市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 149,
     "FUNDNVRANK": 155,
@@ -1850,6 +2312,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 154
   },
   {
+    "ABBRINVESTADVISORNAME": "联博基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "外资独资",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 155,
     "FUNDNVRANK": 157,
@@ -1862,6 +2327,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 155
   },
   {
+    "ABBRINVESTADVISORNAME": "财信基金管理",
+    "AREACHINAME": "长沙市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 158,
     "FUNDNVRANK": 158,
@@ -1874,6 +2342,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 156
   },
   {
+    "ABBRINVESTADVISORNAME": "江信基金",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 136,
     "FUNDNVRANK": 156,
@@ -1886,6 +2357,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 157
   },
   {
+    "ABBRINVESTADVISORNAME": "合煦智远基金",
+    "AREACHINAME": "深圳市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 140,
     "FUNDNVRANK": 159,
@@ -1898,6 +2372,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 158
   },
   {
+    "ABBRINVESTADVISORNAME": "凯石基金",
+    "AREACHINAME": "上海市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 155,
     "FUNDNVRANK": 160,
@@ -1910,6 +2387,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 159
   },
   {
+    "ABBRINVESTADVISORNAME": "瑞达基金",
+    "AREACHINAME": "厦门市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 158,
     "FUNDNVRANK": 161,
@@ -1922,6 +2402,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 160
   },
   {
+    "ABBRINVESTADVISORNAME": "汇百川基金",
+    "AREACHINAME": "海口市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 163,
     "FUNDNVRANK": 162,
@@ -1934,6 +2417,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 161
   },
   {
+    "ABBRINVESTADVISORNAME": "中科沃土基金",
+    "AREACHINAME": "佛山市",
+    "COMPANYCVAL": "民营",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 149,
     "FUNDNVRANK": 163,
@@ -1946,6 +2432,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 162
   },
   {
+    "ABBRINVESTADVISORNAME": "国都证券",
+    "AREACHINAME": "北京市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 162,
     "FUNDNVRANK": 164,
@@ -1958,6 +2447,9 @@ window.__FUND_MANAGER_DATA__ = [
     "UNMSBFNVRANK": 163
   },
   {
+    "ABBRINVESTADVISORNAME": "国联证券资管",
+    "AREACHINAME": "青岛市",
+    "COMPANYCVAL": "地方国有企业",
     "ENDDATE": "2026-03-31T00:00:00",
     "FUNDNRANK": 163,
     "FUNDNVRANK": 132,
