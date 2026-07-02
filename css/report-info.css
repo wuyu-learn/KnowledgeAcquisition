@@ -20,9 +20,15 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 4px;
   min-height: 0;
   overflow: hidden;
+}
+
+/* 主内容区内 panel、filter-section 不再保留默认底部外边距，间距由 flex gap 控制 */
+.report-info-main .panel,
+.report-info-main .filter-section {
+  margin-bottom: 0;
 }
 
 /* ============================================================
@@ -144,6 +150,39 @@
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+.report-info-nav__name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.report-info-nav__badge {
+  flex-shrink: 0;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.report-info-nav__badge--unstructured {
+  background: var(--biz-gray-weak, #eef2f6);
+  color: var(--biz-muted, #667085);
+  border: 1px solid var(--biz-soft-line, #e8edf3);
+}
+
+.report-info-nav__badge--extract-only {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
 }
 
 .report-info-nav__btn:hover {
@@ -169,7 +208,7 @@
 }
 
 /* ============================================================
-   三、表格区章节标题
+   三、表格区章节标题（同时用于筛选区上方小标题）
    ============================================================ */
 .report-info-content__title {
   font-size: 15px;
@@ -178,8 +217,179 @@
   margin: 0;
 }
 
+/* 筛选区上方章节小标题 */
+.report-info-section-title {
+  flex-shrink: 0;
+  padding: 4px 0 2px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+.report-info-section-title__inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.report-info-section-title .report-info-content__title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.report-info-dimension-tag {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--biz-gray-weak, #eef2f6);
+  border: 1px solid var(--biz-soft-line, #e8edf3);
+  color: var(--biz-muted, #667085);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 500;
+  white-space: nowrap;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.report-info-dimension-tag--content {
+  background: var(--biz-primary-weak, #f7eede);
+  border-color: var(--biz-primary, #d4a359);
+  color: var(--biz-primary-hover, #c19648);
+}
+
+/* 新增弹框基金代码 Tag Input */
+.record-modal__fund-code-tag-input {
+  position: relative;
+  min-height: 34px;
+  padding: 4px 10px;
+  border: 1px solid var(--biz-line, #d8dee8);
+  border-radius: 6px;
+  background: #fff;
+  cursor: text;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.record-modal__fund-code-tag-input:focus-within {
+  border-color: var(--biz-primary, #d4a359);
+  box-shadow: 0 0 0 2px rgba(212, 163, 89, 0.12);
+}
+
+.record-modal__fund-code-input {
+  flex: 1;
+  min-width: 80px;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.record-modal__fund-code-input::-webkit-search-decoration,
+.record-modal__fund-code-input::-webkit-search-cancel-button,
+.record-modal__fund-code-input::-webkit-search-results-button,
+.record-modal__fund-code-input::-webkit-search-results-decoration {
+  display: none;
+}
+
+.record-modal__fund-code-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: var(--biz-primary-weak, #f7eede);
+  border: 1px solid var(--biz-primary, #d4a359);
+  border-radius: 4px;
+  color: var(--biz-primary-hover, #c19648);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.record-modal__fund-code-tag-text {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.record-modal__fund-code-tag-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  transition: background-color 0.15s ease;
+}
+
+.record-modal__fund-code-tag-close:hover {
+  background: rgba(193, 150, 72, 0.2);
+}
+
+.record-modal__fund-code-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--biz-soft-line, #e8edf3);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.record-modal__fund-code-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.15s ease;
+}
+
+.record-modal__fund-code-item:hover {
+  background: var(--biz-gray-weak, #f8fafc);
+}
+
+.record-modal__fund-code-item--empty {
+  color: var(--biz-muted, #667085);
+  cursor: default;
+}
+
+.record-modal__fund-code-code {
+  flex-shrink: 0;
+  font-weight: 500;
+  color: var(--biz-text, #1f2937);
+  min-width: 80px;
+}
+
+.record-modal__fund-code-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--biz-muted, #667085);
+}
+
 /* ============================================================
-   四、基金名称/基金简称列：统一宽度，超出截断
+   五、基金名称/基金简称列：统一宽度，超出截断
    ============================================================ */
 .report-info-fund-name {
   min-width: 120px;
@@ -190,22 +400,11 @@
 }
 
 /* ============================================================
-   五、报告名称列：超出截断
+   六、报告名称列：超出截断
    ============================================================ */
 .report-info-report-name {
   min-width: 140px;
   max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* ============================================================
-   六、章节列：超出截断
-   ============================================================ */
-.report-info-chapter {
-  min-width: 160px;
-  max-width: 240px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

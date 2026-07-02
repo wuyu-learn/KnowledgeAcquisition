@@ -90,6 +90,15 @@
     <!-- C.2 右侧：筛选区 + 表格区 -->
     <div class="report-info-main">
 
+      <!-- 章节小标题 -->
+      <section class="report-info-section-title">
+        <div class="report-info-section-title__inner">
+          <h2 class="report-info-content__title" id="reportInfoSheetTitle">—</h2>
+          <span class="report-info-dimension-tag" id="reportInfoDimensionTag"></span>
+          <span class="report-info-dimension-tag report-info-dimension-tag--content" id="reportInfoContentTypeTag"></span>
+        </div>
+      </section>
+
       <!-- 筛选区 -->
       <div class="filter-section">
         <section class="panel filters">
@@ -137,6 +146,7 @@
         <div class="table-toolbar">
           <div class="selection-info" id="reportInfoSelectionInfo">已选择 0 条</div>
           <div class="btn-row">
+            <button class="btn primary" id="reportInfoAddBtn" type="button">新增</button>
             <button class="btn" id="reportInfoBatchLogBtn" disabled>批量查询日志</button>
             <button class="btn btn-refresh" id="reportInfoRefreshBtn" title="刷新列表" type="button"><span class="refresh-icon">↻</span> 刷新</button>
           </div>
@@ -197,6 +207,17 @@
       <div class="modal-actions record-modal__footer">
         <button class="btn" id="recordModalCancelBtn" type="button">取消</button>
         <button class="btn primary" id="recordModalSaveBtn" type="button">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-mask" id="confirmModalMask">
+    <div aria-modal="true" aria-labelledby="confirmModalTitle" class="modal confirm-modal" role="dialog">
+      <h2 id="confirmModalTitle">确认删除记录</h2>
+      <p id="confirmModalBody">确定要删除这条记录吗？</p>
+      <div class="modal-actions">
+        <button class="btn" id="confirmModalCancelBtn" type="button">取消</button>
+        <button class="btn danger" id="confirmModalConfirmBtn" type="button">确认删除</button>
       </div>
     </div>
   </div>

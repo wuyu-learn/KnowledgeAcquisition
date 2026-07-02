@@ -18,6 +18,7 @@
     exportListBtn: document.getElementById('reportInfoExportListBtn'),
     refreshBtn: document.getElementById('reportInfoRefreshBtn'),
     batchLogBtn: document.getElementById('reportInfoBatchLogBtn'),
+    addBtn: document.getElementById('reportInfoAddBtn'),
     selectionInfo: document.getElementById('reportInfoSelectionInfo'),
     tableHead: document.getElementById('reportInfoTableHead'),
     tableBody: document.getElementById('reportInfoTableBody'),
@@ -27,11 +28,19 @@
     paginationNav: document.getElementById('reportInfoPaginationNav'),
     jumpInput: document.getElementById('reportInfoJumpInput'),
     recordModalMask: document.getElementById('recordModalMask'),
+    sheetTitle: document.getElementById('reportInfoSheetTitle'),
     recordModalTitle: document.getElementById('recordModalTitle'),
     recordModalBody: document.getElementById('recordModalBody'),
     recordModalCloseX: document.getElementById('recordModalCloseX'),
     recordModalCancelBtn: document.getElementById('recordModalCancelBtn'),
-    recordModalSaveBtn: document.getElementById('recordModalSaveBtn')
+    recordModalSaveBtn: document.getElementById('recordModalSaveBtn'),
+    dimensionTag: document.getElementById('reportInfoDimensionTag'),
+    contentTypeTag: document.getElementById('reportInfoContentTypeTag'),
+    confirmModalMask: document.getElementById('confirmModalMask'),
+    confirmModalTitle: document.getElementById('confirmModalTitle'),
+    confirmModalBody: document.getElementById('confirmModalBody'),
+    confirmModalCancelBtn: document.getElementById('confirmModalCancelBtn'),
+    confirmModalConfirmBtn: document.getElementById('confirmModalConfirmBtn')
   };
 
   var currentSheetIndex = 0;
@@ -41,7 +50,13 @@
   var currentNavTab = 'mid';
   var navButtons = [];
   var editingRow = null;
+  var isAddingRow = false;
   var editableColumns = [];
+  var pendingDeleteRow = null;
+  var confirmModalCallback = null;
+
+  // 新增弹框中由基金代码回填的只读字段
+  var AUTO_FILL_COLUMNS = ['基金简称', '基金名称', '报告名称', '管理人名称', '报告ID', '公告发布日期'];
 
   function createEl(tag, className) {
     var el = document.createElement(tag);
@@ -98,6 +113,41 @@
       if (reportData[i].sheetName === name) return i;
     }
     return -1;
+  }
+
+  // ===== 根据基金代码在所有数据中查找记录 =====
+  function findRowByFundCode(fundCode) {
+    var code = String(fundCode || '').trim();
+    if (!code) return null;
+    for (var i = 0; i < reportData.length; i++) {
+      var sheet = reportData[i];
+      if (!Array.isArray(sheet.rows)) continue;
+      for (var j = 0; j < sheet.rows.length; j++) {
+        var row = sheet.rows[j];
+        if (String(row['基金代码'] || '').trim() === code) {
+          return row;
+        }
+      }
+    }
+    return null;
+  }
+
+  // ===== 获取所有不重复的基金代码选项（代码 + 简称）=====
+  function getFundCodeOptions() {
+    var options = [];
+    var seen = [];
+    reportData.forEach(function (sheet) {
+      if (!Array.isArray(sheet.rows)) return;
+      sheet.rows.forEach(function (row) {
+        var code = row['基金代码'];
+        var name = row['基金简称'];
+        if (code && String(code).trim() && seen.indexOf(code) === -1) {
+          seen.push(code);
+          options.push({ code: code, name: name || '' });
+        }
+      });
+    });
+    return options;
   }
 
   // ===== 获取 URL 中的 chapter 参数 =====
@@ -161,7 +211,25 @@
       var btn = createEl('button', 'report-info-nav__btn');
       btn.setAttribute('type', 'button');
       btn.setAttribute('data-index', String(index));
-      btn.textContent = sheet.sheetName || '未命名';
+
+      if (sheet.structured === false) {
+        var badgeSpan = createEl('span', 'report-info-nav__badge report-info-nav__badge--unstructured');
+        badgeSpan.textContent = '非结构化';
+        badgeSpan.title = '该章节数据为非结构化文本';
+        btn.appendChild(badgeSpan);
+      }
+
+      if (sheet.extractOnly === true) {
+        var extractBadge = createEl('span', 'report-info-nav__badge report-info-nav__badge--extract-only');
+        extractBadge.textContent = '仅提取';
+        extractBadge.title = '该章节仅做提取，不做结构化处理';
+        btn.appendChild(extractBadge);
+      }
+
+      var nameSpan = createEl('span', 'report-info-nav__name');
+      nameSpan.textContent = sheet.sheetName || '未命名';
+      btn.appendChild(nameSpan);
+
       li.appendChild(btn);
       listEl.appendChild(li);
       navButtons.push(btn);
@@ -405,6 +473,8 @@
     if (!sheet) return;
 
     var columns = Array.isArray(sheet.columns) ? sheet.columns : [];
+    columns = columns.filter(function (col) { return col !== '章节'; });
+
     var data = getPaginationData();
     var rows = data.rows;
 
@@ -428,8 +498,6 @@
         th.className = 'report-info-fund-name';
       } else if (col === '报告名称') {
         th.className = 'report-info-report-name';
-      } else if (col === '章节') {
-        th.className = 'report-info-chapter';
       }
       th.textContent = col;
       headerTr.appendChild(th);
@@ -472,8 +540,6 @@
           td.className = 'report-info-fund-name';
         } else if (col === '报告名称') {
           td.className = 'report-info-report-name';
-        } else if (col === '章节') {
-          td.className = 'report-info-chapter';
         }
         var value = row[col];
         var formatted = formatCellValue(value);
@@ -495,6 +561,7 @@
         '<div class="row-actions">' +
         '<button class="link-btn" type="button" data-action="view" data-row-index="' + globalIndex + '">查看</button>' +
         '<button class="link-btn" type="button" data-action="edit" data-row-index="' + globalIndex + '">编辑</button>' +
+        '<button class="link-btn danger" type="button" data-action="delete" data-row-index="' + globalIndex + '">删除</button>' +
         '</div>';
       tr.appendChild(actionTd);
 
@@ -545,7 +612,27 @@
     currentFilterValue = '';
     updateActiveNav(index);
     initReportPeriodOptions();
+    updateSheetDimension();
+    renderSheetTitle();
     renderTable();
+  }
+
+  // ===== 更新当前 Sheet 维度/内容类型标签 =====
+  function updateSheetDimension() {
+    var sheet = getCurrentSheet();
+    if (els.dimensionTag) {
+      els.dimensionTag.textContent = (sheet && sheet.dimension) ? sheet.dimension : '';
+    }
+    if (els.contentTypeTag) {
+      els.contentTypeTag.textContent = (sheet && sheet.contentType) ? sheet.contentType : '';
+    }
+  }
+
+  // ===== 渲染当前章节小标题 =====
+  function renderSheetTitle() {
+    if (!els.sheetTitle) return;
+    var sheet = getCurrentSheet();
+    els.sheetTitle.textContent = (sheet && sheet.sheetName) ? sheet.sheetName : '未命名';
   }
 
   // ===== 绑定筛选事件 =====
@@ -597,8 +684,50 @@
       var rowIndex = parseInt(btn.getAttribute('data-row-index'), 10);
       if (action === 'view' || action === 'edit') {
         openRecordModal(action, rowIndex);
+      } else if (action === 'delete') {
+        deleteRow(rowIndex);
       }
     });
+  }
+
+  // ===== 删除行 =====
+  function deleteRow(rowIndex) {
+    var row = getRowByFilteredIndex(rowIndex);
+    if (!row) return;
+
+    pendingDeleteRow = row;
+
+    openConfirmModal('确认删除记录', '确定要删除这条记录吗？', doDeleteRow);
+  }
+
+  // ===== 执行删除 =====
+  function doDeleteRow() {
+    if (!pendingDeleteRow) return;
+
+    var sheet = getCurrentSheet();
+    var actualIndex = sheet.rows.indexOf(pendingDeleteRow);
+    if (actualIndex === -1) return;
+
+    sheet.rows.splice(actualIndex, 1);
+    pendingDeleteRow = null;
+    currentPage = 1;
+    renderTable();
+    if (window.showToast) window.showToast('删除成功');
+  }
+
+  // ===== 打开确认弹框 =====
+  function openConfirmModal(title, body, callback) {
+    if (els.confirmModalTitle) els.confirmModalTitle.textContent = title || '确认';
+    if (els.confirmModalBody) els.confirmModalBody.textContent = body || '';
+    confirmModalCallback = callback;
+    if (els.confirmModalMask) els.confirmModalMask.classList.add('open');
+  }
+
+  // ===== 关闭确认弹框 =====
+  function closeConfirmModal() {
+    if (els.confirmModalMask) els.confirmModalMask.classList.remove('open');
+    confirmModalCallback = null;
+    pendingDeleteRow = null;
   }
 
   function getRowByFilteredIndex(rowIndex) {
@@ -615,36 +744,116 @@
 
   function openRecordModal(mode, rowIndex) {
     var sheet = getCurrentSheet();
-    var row = getRowByFilteredIndex(rowIndex);
-    if (!sheet || !row) return;
+    if (!sheet) return;
 
     var columns = Array.isArray(sheet.columns) ? sheet.columns : [];
-    editingRow = mode === 'edit' ? row : null;
-    editableColumns = mode === 'edit' ? getEditableColumns(columns) : [];
+    var row;
+
+    if (mode === 'add') {
+      row = {};
+      columns.forEach(function (col) {
+        if (col === '章节') {
+          row[col] = sheet.sheetName || '';
+        } else if (col === '是否有内容') {
+          row[col] = '是';
+        } else {
+          row[col] = '';
+        }
+      });
+      editingRow = row;
+      isAddingRow = true;
+    } else {
+      row = getRowByFilteredIndex(rowIndex);
+      if (!row) return;
+      editingRow = mode === 'edit' ? row : null;
+      isAddingRow = false;
+    }
+
+    if (mode === 'add') {
+      editableColumns = columns.filter(function (col) {
+        return AUTO_FILL_COLUMNS.indexOf(col) === -1;
+      });
+    } else if (mode === 'edit') {
+      editableColumns = getEditableColumns(columns);
+    } else {
+      editableColumns = [];
+    }
 
     if (els.recordModalTitle) {
-      els.recordModalTitle.textContent = mode === 'edit' ? '编辑记录' : '查看记录';
+      if (mode === 'add') {
+        els.recordModalTitle.textContent = '新增记录';
+      } else {
+        els.recordModalTitle.textContent = mode === 'edit' ? '编辑记录' : '查看记录';
+      }
     }
     if (els.recordModalSaveBtn) {
-      els.recordModalSaveBtn.hidden = mode !== 'edit';
-      els.recordModalSaveBtn.style.display = mode === 'edit' ? '' : 'none';
+      els.recordModalSaveBtn.hidden = mode === 'view';
+      els.recordModalSaveBtn.style.display = mode === 'view' ? 'none' : '';
     }
     if (els.recordModalCancelBtn) {
-      els.recordModalCancelBtn.textContent = mode === 'edit' ? '取消' : '关闭';
+      els.recordModalCancelBtn.textContent = mode === 'edit' || mode === 'add' ? '取消' : '关闭';
     }
 
     renderRecordModalFields(row, columns, mode);
     if (els.recordModalMask) els.recordModalMask.classList.add('open');
   }
 
+  function getAddModalColumns(columns) {
+    var ordered = ['报告期', '基金代码', '基金简称', '基金名称'];
+    var front = [];
+    var rest = columns.slice();
+    ordered.forEach(function (col) {
+      var idx = rest.indexOf(col);
+      if (idx !== -1) {
+        front.push(col);
+        rest.splice(idx, 1);
+      }
+    });
+    return front.concat(rest);
+  }
+
+  // ===== 根据基金代码回填新增弹框只读字段 =====
+  function autoFillByFundCode(fundCode) {
+    if (!editingRow) return;
+    var matched = findRowByFundCode(fundCode);
+    if (!matched) {
+      window.showToast && window.showToast('未找到该基金代码对应记录');
+      return;
+    }
+
+    AUTO_FILL_COLUMNS.forEach(function (col) {
+      if (matched[col] === undefined) return;
+      // 页面未选择报告期时，不预填报告名称
+      if (col === '报告名称' && !(els.reportPeriod && els.reportPeriod.value)) {
+        return;
+      }
+      editingRow[col] = matched[col];
+      var displayEl = els.recordModalBody.querySelector('[data-autofill-col="' + col + '"]');
+      if (displayEl) {
+        var displayValue = formatCellValue(matched[col]);
+        if (col === '公告发布日期') {
+          displayValue = formatDate(matched[col]);
+        }
+        displayEl.textContent = displayValue;
+      }
+    });
+
+    window.showToast && window.showToast('已回填基金信息');
+  }
+
   function renderRecordModalFields(row, columns, mode) {
     if (!els.recordModalBody) return;
     els.recordModalBody.innerHTML = '';
 
+    if (mode === 'add') {
+      columns = getAddModalColumns(columns);
+    }
+
+    var sheet = getCurrentSheet();
     var grid = createEl('div', 'record-modal__grid');
     columns.forEach(function (col) {
       var value = formatCellValue(row[col]);
-      var isEditable = mode === 'edit' && editableColumns.indexOf(col) !== -1;
+      var isEditable = (mode === 'edit' || mode === 'add') && editableColumns.indexOf(col) !== -1;
       var isWide = isLongTextColumn(col) || String(value).length > 60;
       var field = createEl('div', 'record-modal__field' + (isWide ? ' record-modal__field--wide' : ''));
       var label = createEl('label', 'record-modal__label');
@@ -652,14 +861,163 @@
       field.appendChild(label);
 
       if (isEditable) {
-        var control = createEl(isWide ? 'textarea' : 'input', 'record-modal__control');
-        control.setAttribute('data-field', col);
-        if (!isWide) control.setAttribute('type', 'text');
-        control.value = value === '--' ? '' : value;
-        field.appendChild(control);
+        var control;
+        if (mode === 'add' && col === '基金代码') {
+          var wrapper = createEl('div', 'record-modal__fund-code-tag-input');
+          control = createEl('input', 'record-modal__control record-modal__fund-code-input');
+          control.setAttribute('data-field', col);
+          control.setAttribute('type', 'search');
+          control.setAttribute('placeholder', '请输入基金代码搜索');
+          control.value = value === '--' ? '' : value;
+
+          var tagEl = createEl('div', 'record-modal__fund-code-tag');
+          var tagText = createEl('span', 'record-modal__fund-code-tag-text');
+          var tagClose = createEl('span', 'record-modal__fund-code-tag-close');
+          tagClose.innerHTML = '×';
+          tagClose.setAttribute('title', '清除');
+          tagEl.appendChild(tagText);
+          tagEl.appendChild(tagClose);
+          tagEl.style.display = 'none';
+
+          var dropdown = createEl('div', 'record-modal__fund-code-dropdown');
+          dropdown.style.display = 'none';
+
+          function clearFundCodeSelection() {
+            control.value = '';
+            tagEl.style.display = 'none';
+            control.style.display = '';
+            if (!editingRow) return;
+            AUTO_FILL_COLUMNS.forEach(function (c) {
+              editingRow[c] = '';
+              var displayEl = els.recordModalBody.querySelector('[data-autofill-col="' + c + '"]');
+              if (displayEl) displayEl.textContent = '--';
+            });
+          }
+
+          function setFundCodeSelection(code) {
+            control.value = code;
+            tagText.textContent = code;
+            tagEl.style.display = '';
+            control.style.display = 'none';
+            autoFillByFundCode(code);
+          }
+
+          if (control.value) {
+            setFundCodeSelection(control.value);
+          }
+
+          tagClose.addEventListener('click', function (e) {
+            e.stopPropagation();
+            clearFundCodeSelection();
+            control.focus();
+          });
+
+          wrapper.addEventListener('click', function (e) {
+            if (tagEl.style.display !== 'none' && e.target !== tagClose && !dropdown.contains(e.target)) {
+              clearFundCodeSelection();
+              control.focus();
+            }
+          });
+
+          function renderFundCodeDropdown() {
+            dropdown.innerHTML = '';
+            var options = getFundCodeOptions();
+            if (options.length === 0) {
+              var emptyItem = createEl('div', 'record-modal__fund-code-item record-modal__fund-code-item--empty');
+              emptyItem.textContent = '暂无数据';
+              dropdown.appendChild(emptyItem);
+            } else {
+              options.forEach(function (opt) {
+                var item = createEl('div', 'record-modal__fund-code-item');
+                item.innerHTML = '<span class="record-modal__fund-code-code">' + escapeHtml(String(opt.code)) + '</span>' +
+                                 '<span class="record-modal__fund-code-name">' + escapeHtml(String(opt.name)) + '</span>';
+                item.addEventListener('mousedown', function (e) {
+                  e.preventDefault();
+                  setFundCodeSelection(opt.code);
+                  dropdown.style.display = 'none';
+                });
+                dropdown.appendChild(item);
+              });
+            }
+          }
+
+          control.addEventListener('focus', function () {
+            renderFundCodeDropdown();
+            dropdown.style.display = 'block';
+          });
+
+          control.addEventListener('blur', function () {
+            setTimeout(function () {
+              dropdown.style.display = 'none';
+            }, 150);
+          });
+
+          control.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              autoFillByFundCode(control.value);
+              dropdown.style.display = 'none';
+            }
+          });
+
+          wrapper.appendChild(control);
+          wrapper.appendChild(tagEl);
+          wrapper.appendChild(dropdown);
+          field.appendChild(wrapper);
+        } else if (mode === 'add' && col === '报告期') {
+          control = createEl('select', 'record-modal__control');
+          control.setAttribute('data-field', col);
+          var emptyOption = createEl('option');
+          emptyOption.value = '';
+          emptyOption.textContent = '请选择';
+          control.appendChild(emptyOption);
+          var periods = [];
+          if (sheet && Array.isArray(sheet.rows)) {
+            sheet.rows.forEach(function (r) {
+              var period = r['报告期'];
+              if (period && String(period).trim() && periods.indexOf(period) === -1) {
+                periods.push(period);
+              }
+            });
+          }
+          periods.forEach(function (period) {
+            var option = createEl('option');
+            option.value = period;
+            option.textContent = period;
+            if (String(value) === String(period)) option.selected = true;
+            control.appendChild(option);
+          });
+          field.appendChild(control);
+        } else if (mode === 'add' && col === '公告发布日期') {
+          control = createEl('input', 'record-modal__control');
+          control.setAttribute('data-field', col);
+          control.setAttribute('type', 'date');
+          control.value = value === '--' ? '' : formatDate(value);
+          field.appendChild(control);
+        } else if (mode === 'add' && col === '是否有内容') {
+          control = createEl('select', 'record-modal__control');
+          control.setAttribute('data-field', col);
+          ['是', '否'].forEach(function (opt) {
+            var option = createEl('option');
+            option.value = opt;
+            option.textContent = opt;
+            if (String(value) === opt) option.selected = true;
+            control.appendChild(option);
+          });
+          field.appendChild(control);
+        } else {
+          control = createEl(isWide ? 'textarea' : 'input', 'record-modal__control');
+          control.setAttribute('data-field', col);
+          if (!isWide) control.setAttribute('type', 'text');
+          control.value = value === '--' ? '' : value;
+          field.appendChild(control);
+        }
       } else {
         var valueEl = createEl('div', 'record-modal__value');
         valueEl.textContent = value;
+        if (mode === 'add' && AUTO_FILL_COLUMNS.indexOf(col) !== -1) {
+          valueEl.setAttribute('data-autofill-col', col);
+        }
         field.appendChild(valueEl);
       }
 
@@ -672,6 +1030,7 @@
   function closeRecordModal() {
     if (els.recordModalMask) els.recordModalMask.classList.remove('open');
     editingRow = null;
+    isAddingRow = false;
     editableColumns = [];
   }
 
@@ -683,6 +1042,15 @@
         editingRow[field] = control.value;
       }
     });
+
+    if (isAddingRow) {
+      var sheet = getCurrentSheet();
+      if (sheet && Array.isArray(sheet.rows)) {
+        sheet.rows.unshift(editingRow);
+      }
+      isAddingRow = false;
+    }
+
     closeRecordModal();
     renderTable();
     window.showToast && window.showToast('记录已保存');
@@ -694,6 +1062,28 @@
   if (els.recordModalMask) {
     els.recordModalMask.addEventListener('click', function (e) {
       if (e.target === els.recordModalMask) closeRecordModal();
+    });
+  }
+
+  if (els.addBtn) {
+    els.addBtn.addEventListener('click', function () {
+      openRecordModal('add');
+    });
+  }
+
+  // ===== 确认弹框事件绑定 =====
+  if (els.confirmModalCancelBtn) els.confirmModalCancelBtn.addEventListener('click', closeConfirmModal);
+  if (els.confirmModalConfirmBtn) {
+    els.confirmModalConfirmBtn.addEventListener('click', function () {
+      if (typeof confirmModalCallback === 'function') {
+        confirmModalCallback();
+      }
+      closeConfirmModal();
+    });
+  }
+  if (els.confirmModalMask) {
+    els.confirmModalMask.addEventListener('click', function (e) {
+      if (e.target === els.confirmModalMask) closeConfirmModal();
     });
   }
 
